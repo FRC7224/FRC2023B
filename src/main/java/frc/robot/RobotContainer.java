@@ -18,11 +18,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.lib.team3061.gyro.GyroIO;
 import frc.lib.team3061.gyro.GyroIOAhrs;
-import frc.lib.team3061.pneumatics.Pneumatics;
-import frc.lib.team3061.pneumatics.PneumaticsIO;
-import frc.lib.team3061.pneumatics.PneumaticsIORev;
 import frc.lib.team3061.swerve.SwerveModule;
 import frc.lib.team3061.swerve.SwerveModuleIO;
 import frc.lib.team3061.swerve.SwerveModuleIOSim;
@@ -37,8 +35,6 @@ import frc.robot.commands.FeedForwardCharacterization;
 import frc.robot.commands.FeedForwardCharacterization.FeedForwardCharacterizationData;
 import frc.robot.commands.FollowPath;
 import frc.robot.commands.TeleopSwerve;
-import frc.robot.operator_interface.OISelector;
-import frc.robot.operator_interface.OperatorInterface;
 import frc.robot.subsystems.drivetrain.Drivetrain;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -52,10 +48,19 @@ import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  private OperatorInterface oi = new OperatorInterface() {};
+  // private OperatorInterface oi = new OperatorInterface() {};
 
-  // Joysticks
-  private final Joystick drivejoystick = new Joystick(0);
+  final Joystick drivejoystick = new Joystick(0);
+  JoystickButton FieldRelativeButton = new JoystickButton(drivejoystick, 1),
+      XStanceButton = new JoystickButton(drivejoystick, 2),
+      ResetGyroButton = new JoystickButton(drivejoystick, 3),
+      button4 = new JoystickButton(drivejoystick, 4),
+      button5 = new JoystickButton(drivejoystick, 5),
+      button6 = new JoystickButton(drivejoystick, 6),
+      button7 = new JoystickButton(drivejoystick, 7),
+      button8 = new JoystickButton(drivejoystick, 8),
+      button9 = new JoystickButton(drivejoystick, 8),
+      button10 = new JoystickButton(drivejoystick, 8);
 
   private Drivetrain drivetrain;
 
@@ -125,7 +130,7 @@ public class RobotContainer {
                     MAX_VELOCITY_METERS_PER_SECOND);
 
             drivetrain = new Drivetrain(gyro, flModule, frModule, blModule, brModule);
-            new Pneumatics(new PneumaticsIORev());
+            //            new Pneumatics(new PneumaticsIORev());
             new Vision(new VisionIOPhotonVision(CAMERA_NAME));
             break;
           }
@@ -143,7 +148,7 @@ public class RobotContainer {
             SwerveModule brModule =
                 new SwerveModule(new SwerveModuleIOSim(), 3, MAX_VELOCITY_METERS_PER_SECOND);
             drivetrain = new Drivetrain(new GyroIO() {}, flModule, frModule, blModule, brModule);
-            new Pneumatics(new PneumaticsIO() {});
+            //           new Pneumatics(new PneumaticsIO() {});
             AprilTagFieldLayout layout;
             try {
               layout = new AprilTagFieldLayout(VisionConstants.APRILTAG_FIELD_LAYOUT_PATH);
@@ -172,7 +177,7 @@ public class RobotContainer {
       SwerveModule brModule =
           new SwerveModule(new SwerveModuleIO() {}, 3, MAX_VELOCITY_METERS_PER_SECOND);
       drivetrain = new Drivetrain(new GyroIO() {}, flModule, frModule, blModule, brModule);
-      new Pneumatics(new PneumaticsIO() {});
+      //      new Pneumatics(new PneumaticsIO() {});
       new Vision(new VisionIO() {});
     }
 
@@ -189,12 +194,8 @@ public class RobotContainer {
    * new OI objects and binds all of the buttons to commands.
    */
   public void updateOI() {
-    if (!OISelector.didJoysticksChange()) {
-      return;
-    }
 
     CommandScheduler.getInstance().getActiveButtonLoop().clear();
-    oi = OISelector.findOperatorInterface();
 
     /*
      * Set up the default command for the drivetrain. The joysticks' values map to percentage of the
@@ -211,8 +212,8 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(
         new TeleopSwerve(
             drivetrain,
-            () -> drivejoystick.getRawAxis(0),
             () -> drivejoystick.getRawAxis(1),
+            () -> drivejoystick.getRawAxis(0),
             () -> drivejoystick.getRawAxis(3))); // field vs robot drive
 
     configureButtonBindings();
@@ -230,19 +231,19 @@ public class RobotContainer {
   /** Use this method to define your button->command mappings. */
   private void configureButtonBindings() {
     // field-relative toggle
-    oi.getFieldRelativeButton()
-        .toggleOnTrue(
-            Commands.either(
-                Commands.runOnce(drivetrain::disableFieldRelative, drivetrain),
-                Commands.runOnce(drivetrain::enableFieldRelative, drivetrain),
-                drivetrain::getFieldRelative));
+
+    FieldRelativeButton.toggleOnTrue(
+        Commands.either(
+            Commands.runOnce(drivetrain::disableFieldRelative, drivetrain),
+            Commands.runOnce(drivetrain::enableFieldRelative, drivetrain),
+            drivetrain::getFieldRelative));
 
     // reset gyro to 0 degrees
-    oi.getResetGyroButton().onTrue(Commands.runOnce(drivetrain::zeroGyroscope, drivetrain));
+    ResetGyroButton.onTrue(Commands.runOnce(drivetrain::zeroGyroscope, drivetrain));
 
     // x-stance
-    oi.getXStanceButton().onTrue(Commands.runOnce(drivetrain::enableXstance, drivetrain));
-    oi.getXStanceButton().onFalse(Commands.runOnce(drivetrain::disableXstance, drivetrain));
+    XStanceButton.onTrue(Commands.runOnce(drivetrain::enableXstance, drivetrain));
+    XStanceButton.onFalse(Commands.runOnce(drivetrain::disableXstance, drivetrain));
   }
 
   /** Use this method to define your commands for autonomous mode. */

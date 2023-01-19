@@ -76,23 +76,5 @@ public final class Constants {
     SIM
   }
 
-  // Joystick 1 constants
-  public static double kdeadzone = 0.05; // Deadzone
-
-  public static int kshiftbutton = 1;
-  public static int kintakeupbutton = 2;
-  public static int kdrvautobutton = 3;
-  public static int kclimboverridebutton = 4;
-
-  public static int kshoot5button = 5;
-  public static int kshoot6button = 6;
-  // public static int kshortshootbutton = 7;
-  public static int kinitShooter = 8;
-  public static int kautobutton = 9;
-  public static int kclimbButton = 10;
-  public static int kclimbButtonInital = 7;
-  public static int kshoot0button = 11;
-  public static int kshoot7button = 12;
-
   public static int ARM_EXTEND_PORT = 14;
 }

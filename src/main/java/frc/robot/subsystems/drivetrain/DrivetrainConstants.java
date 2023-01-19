@@ -20,24 +20,22 @@ public final class DrivetrainConstants {
   public static int FRONT_LEFT_MODULE_DRIVE_MOTOR = 12;
   public static int FRONT_LEFT_MODULE_STEER_MOTOR = 10;
   public static int FRONT_LEFT_MODULE_STEER_ENCODER = 11;
-  public static final double FRONT_LEFT_MODULE_STEER_OFFSET = -Math.toRadians(218.0);
+  public static final double FRONT_LEFT_MODULE_STEER_OFFSET = 230.00;
 
   public static int FRONT_RIGHT_MODULE_DRIVE_MOTOR = 3;
   public static int FRONT_RIGHT_MODULE_STEER_MOTOR = 1;
   public static int FRONT_RIGHT_MODULE_STEER_ENCODER = 2;
-  public static final double FRONT_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(285.0);
+  public static final double FRONT_RIGHT_MODULE_STEER_OFFSET = -63.22;
 
   public static int BACK_LEFT_MODULE_DRIVE_MOTOR = 9;
   public static int BACK_LEFT_MODULE_STEER_MOTOR = 7;
   public static int BACK_LEFT_MODULE_STEER_ENCODER = 8;
-  public static final double BACK_LEFT_MODULE_STEER_OFFSET = -Math.toRadians(71.0);
+  public static final double BACK_LEFT_MODULE_STEER_OFFSET = 72.24;
 
   public static int BACK_RIGHT_MODULE_DRIVE_MOTOR = 6;
   public static int BACK_RIGHT_MODULE_STEER_MOTOR = 4;
   public static int BACK_RIGHT_MODULE_STEER_ENCODER = 5;
-  public static final double BACK_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(54.0);
-
-  public static final int PIGEON_ID = 18;
+  public static final double BACK_RIGHT_MODULE_STEER_OFFSET = 55.96;
 
   // FIXME: update robot dimensions
 
@@ -103,10 +101,10 @@ public final class DrivetrainConstants {
 
   public static final int TIMEOUT_MS = 30;
 
-  public static final double AUTO_MAX_SPEED_METERS_PER_SECOND = 2.0;
-  public static final double AUTO_MAX_ACCELERATION_METERS_PER_SECOND_SQUARED = 2.0;
-  public static final double AUTO_MAX_ANGULAR_SPEED_RADIANS_PER_SECOND = 2.0 * Math.PI;
-  public static final double AUTO_MAX_ANGULAR_SPEED_RADIANS_PER_SECOND_SQUARED = 2.0 * Math.PI;
+  public static final double AUTO_MAX_SPEED_METERS_PER_SECOND = 0.5;
+  public static final double AUTO_MAX_ACCELERATION_METERS_PER_SECOND_SQUARED = 0.5;
+  public static final double AUTO_MAX_ANGULAR_SPEED_RADIANS_PER_SECOND = 0.5 * Math.PI;
+  public static final double AUTO_MAX_ANGULAR_SPEED_RADIANS_PER_SECOND_SQUARED = 0.5 * Math.PI;
 
   // FIXME: tune PID values for auto paths
 

@@ -4,7 +4,6 @@
 
 package frc.lib.team3061.gyro;
 
-
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
 
@@ -17,8 +16,12 @@ public class GyroIOAhrs implements GyroIO {
 
   @Override
   public void updateInputs(GyroIOInputs inputs) {
-    inputs.connected = gyro.isConnected(); //Indicates whether the sensor is currently connected to the host computer.
+    inputs.connected =
+        gyro.isConnected(); // Indicates whether the sensor is currently connected to the host
+    // computer.
     inputs.positionDeg = gyro.getYaw(); // degrees
-    inputs.velocityDegPerSec = gyro.getRate(); // Return the rate of rotation of the yaw (Z-axis) gyro, in degrees per second.
+    inputs.velocityDegPerSec =
+        gyro.getRate(); // Return the rate of rotation of the yaw (Z-axis) gyro, in degrees per
+    // second.
   }
 }
