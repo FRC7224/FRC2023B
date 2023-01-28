@@ -19,7 +19,7 @@ public class GyroIOAhrs implements GyroIO {
     inputs.connected =
         gyro.isConnected(); // Indicates whether the sensor is currently connected to the host
     // computer.
-    inputs.positionDeg = gyro.getYaw(); // degrees
+    inputs.positionDeg = -gyro.getYaw(); // degrees
     inputs.velocityDegPerSec =
         gyro.getRate(); // Return the rate of rotation of the yaw (Z-axis) gyro, in degrees per
     // second.

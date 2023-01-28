@@ -44,27 +44,25 @@ public class Robot extends LoggedRobot {
     // (https://github.com/Mechanical-Advantage/AdvantageKit/blob/main/docs/START-LOGGING.md#robot-configuration)
 
     Logger logger = Logger.getInstance();
-    /*
-       // Set a metadata value
-       logger.recordMetadata("RuntimeType", getRuntimeType().toString());
-       logger.recordMetadata("ProjectName", BuildConstants.MAVEN_NAME);
-       logger.recordMetadata("BuildDate", BuildConstants.BUILD_DATE);
-       logger.recordMetadata("GitSHA", BuildConstants.GIT_SHA);
-       logger.recordMetadata("GitDate", BuildConstants.GIT_DATE);
-       logger.recordMetadata("GitBranch", BuildConstants.GIT_BRANCH);
-       switch (BuildConstants.DIRTY) {
-         case 0:
-           logger.recordMetadata(GIT_DIRTY, "All changes committed");
-           break;
-         case 1:
-           logger.recordMetadata(GIT_DIRTY, "Uncomitted changes");
-           break;
-         default:
 
-    */
-    logger.recordMetadata(GIT_DIRTY, "Unknown");
-    //     break;
-    //  }
+    // Set a metadata value
+    logger.recordMetadata("RuntimeType", getRuntimeType().toString());
+    logger.recordMetadata("ProjectName", BuildConstants.MAVEN_NAME);
+    logger.recordMetadata("BuildDate", BuildConstants.BUILD_DATE);
+    logger.recordMetadata("GitSHA", BuildConstants.GIT_SHA);
+    logger.recordMetadata("GitDate", BuildConstants.GIT_DATE);
+    logger.recordMetadata("GitBranch", BuildConstants.GIT_BRANCH);
+    switch (BuildConstants.DIRTY) {
+      case 0:
+        logger.recordMetadata(GIT_DIRTY, "All changes committed");
+        break;
+      case 1:
+        logger.recordMetadata(GIT_DIRTY, "Uncomitted changes");
+        break;
+      default:
+        logger.recordMetadata(GIT_DIRTY, "Unknown");
+        break;
+    }
 
     switch (Constants.getMode()) {
       case REAL:

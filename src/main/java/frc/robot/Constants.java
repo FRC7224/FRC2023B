@@ -53,9 +53,10 @@ public final class Constants {
 
   // update for various robots
   public static Mode getMode() {
+
     switch (getRobot()) {
       case ROBOT_2023_SEASON:
-        return RobotBase.isReal() ? Mode.REAL : Mode.REPLAY;
+        return RobotBase.isReal() ? Mode.REAL : Mode.REAL;
 
       case ROBOT_SIMBOT:
         return Mode.SIM;

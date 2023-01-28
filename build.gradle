@@ -169,9 +169,9 @@ gversion {
     classPackage = "frc.robot"
     className    = "BuildConstants"
     dateFormat   = "yyyy-MM-dd HH:mm:ss z"
-    timeZone     = "America/Chicago" // Use preferred time zone
+    timeZone     = "America/Detroit" // Use preferred time zone
     indent       = "  "
 }
 
-//project.compileJava.dependsOn(createVersionFile)
+project.compileJava.dependsOn(createVersionFile)
 build.dependsOn(spotlessApply)

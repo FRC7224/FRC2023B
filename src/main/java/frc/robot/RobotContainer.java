@@ -14,6 +14,7 @@ import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -51,10 +52,10 @@ public class RobotContainer {
   // private OperatorInterface oi = new OperatorInterface() {};
 
   final Joystick drivejoystick = new Joystick(0);
-  JoystickButton FieldRelativeButton = new JoystickButton(drivejoystick, 1),
+  JoystickButton button1 = new JoystickButton(drivejoystick, 1),
       XStanceButton = new JoystickButton(drivejoystick, 2),
       ResetGyroButton = new JoystickButton(drivejoystick, 3),
-      button4 = new JoystickButton(drivejoystick, 4),
+      FieldRelativeButton = new JoystickButton(drivejoystick, 4),
       button5 = new JoystickButton(drivejoystick, 5),
       button6 = new JoystickButton(drivejoystick, 6),
       button7 = new JoystickButton(drivejoystick, 7),
@@ -212,8 +213,8 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(
         new TeleopSwerve(
             drivetrain,
-            () -> drivejoystick.getRawAxis(1),
-            () -> drivejoystick.getRawAxis(0),
+            () -> -drivejoystick.getRawAxis(1),
+            () -> -drivejoystick.getRawAxis(0),
             () -> drivejoystick.getRawAxis(3))); // field vs robot drive
 
     configureButtonBindings();
@@ -231,7 +232,7 @@ public class RobotContainer {
   /** Use this method to define your button->command mappings. */
   private void configureButtonBindings() {
     // field-relative toggle
-
+    SmartDashboard.putBoolean("Field Button input", FieldRelativeButton.getAsBoolean());
     FieldRelativeButton.toggleOnTrue(
         Commands.either(
             Commands.runOnce(drivetrain::disableFieldRelative, drivetrain),
@@ -254,7 +255,7 @@ public class RobotContainer {
     // build auto path commands
     List<PathPlannerTrajectory> auto1Paths =
         PathPlanner.loadPathGroup(
-            "testPaths1",
+            "testPaths8",
             AUTO_MAX_SPEED_METERS_PER_SECOND,
             AUTO_MAX_ACCELERATION_METERS_PER_SECOND_SQUARED);
     Command autoTest =
