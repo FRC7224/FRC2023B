@@ -7,6 +7,7 @@ package frc.robot;
 import static frc.robot.Constants.*;
 import static frc.robot.subsystems.drivetrain.DrivetrainConstants.*;
 
+import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
 import com.pathplanner.lib.commands.FollowPathWithEvents;
@@ -79,8 +80,7 @@ public class RobotContainer {
       switch (Constants.getRobot()) {
         case ROBOT_2023_SEASON:
           {
-            // GyroIO gyro = new GyroIOAhrs(PIGEON_ID);
-
+            // GyroIO gyro = new Nax X2
             // The important thing about how you configure your gyroscope is that rotating
             // the robot counter-clockwise should
             // cause the angle reading to increase until it wraps back over to zero.
@@ -232,6 +232,7 @@ public class RobotContainer {
   /** Use this method to define your button->command mappings. */
   private void configureButtonBindings() {
     // field-relative toggle
+
     SmartDashboard.putBoolean("Field Button input", FieldRelativeButton.getAsBoolean());
     FieldRelativeButton.toggleOnTrue(
         Commands.either(
@@ -253,11 +254,12 @@ public class RobotContainer {
     AUTO_EVENT_MAP.put("event2", Commands.print("passed marker 2"));
 
     // build auto path commands
+
     List<PathPlannerTrajectory> auto1Paths =
         PathPlanner.loadPathGroup(
-            "testPaths8",
-            AUTO_MAX_SPEED_METERS_PER_SECOND,
-            AUTO_MAX_ACCELERATION_METERS_PER_SECOND_SQUARED);
+            "testPaths1",
+            new PathConstraints(
+                AUTO_MAX_SPEED_METERS_PER_SECOND, AUTO_MAX_ACCELERATION_METERS_PER_SECOND_SQUARED));
     Command autoTest =
         Commands.sequence(
             new FollowPathWithEvents(
