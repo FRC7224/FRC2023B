@@ -56,7 +56,7 @@ public final class Constants {
 
     switch (getRobot()) {
       case ROBOT_2023_SEASON:
-        return RobotBase.isReal() ? Mode.REAL : Mode.REAL;
+        return RobotBase.isReal() ? Mode.REAL : Mode.REPLAY;
 
       case ROBOT_SIMBOT:
         return Mode.SIM;

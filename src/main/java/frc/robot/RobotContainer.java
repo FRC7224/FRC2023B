@@ -37,6 +37,7 @@ import frc.robot.commands.FeedForwardCharacterization;
 import frc.robot.commands.FeedForwardCharacterization.FeedForwardCharacterizationData;
 import frc.robot.commands.FollowPath;
 import frc.robot.commands.TeleopSwerve;
+import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.drivetrain.Drivetrain;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -57,14 +58,15 @@ public class RobotContainer {
       XStanceButton = new JoystickButton(drivejoystick, 2),
       ResetGyroButton = new JoystickButton(drivejoystick, 3),
       FieldRelativeButton = new JoystickButton(drivejoystick, 4),
-      button5 = new JoystickButton(drivejoystick, 5),
-      button6 = new JoystickButton(drivejoystick, 6),
+      Extendarm = new JoystickButton(drivejoystick, 5),
+      Retractarm = new JoystickButton(drivejoystick, 6),
       button7 = new JoystickButton(drivejoystick, 7),
       button8 = new JoystickButton(drivejoystick, 8),
       button9 = new JoystickButton(drivejoystick, 8),
       button10 = new JoystickButton(drivejoystick, 8);
 
   private Drivetrain drivetrain;
+  private ArmSubsystem armcontrol;
 
   // use AdvantageKit's LoggedDashboardChooser instead of SendableChooser to ensure accurate logging
   private final LoggedDashboardChooser<Command> autoChooser =
@@ -215,7 +217,7 @@ public class RobotContainer {
             drivetrain,
             () -> -drivejoystick.getRawAxis(1),
             () -> -drivejoystick.getRawAxis(0),
-            () -> drivejoystick.getRawAxis(3))); // field vs robot drive
+            () -> -drivejoystick.getRawAxis(3))); // field vs robot drive
 
     configureButtonBindings();
   }
@@ -246,6 +248,10 @@ public class RobotContainer {
     // x-stance
     XStanceButton.onTrue(Commands.runOnce(drivetrain::enableXstance, drivetrain));
     XStanceButton.onFalse(Commands.runOnce(drivetrain::disableXstance, drivetrain));
+
+    // arm extend
+    //  Extendarm.onTrue(Commands.runOnce(armcontrol::setExtendArm, armcontrol));
+    //   ResetGyroButton.onFalse(Commands.runOnce(armcontrol::setRetracrtArm, armcontrol));
   }
 
   /** Use this method to define your commands for autonomous mode. */
