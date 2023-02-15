@@ -1,6 +1,5 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -16,12 +15,12 @@ public class ArmSubsystem extends SubsystemBase {
   /** sets the ball intake motor speed -1 to +1 */
   public void setExtendArm() {
     SmartDashboard.putNumber("arm speed in sub system ", 0.15);
-    arm.set(ControlMode.PercentOutput, 0.15);
+    // arm.set(ControlMode.PercentOutput, 0.15);
   }
 
   public void setRetracrtArm() {
     SmartDashboard.putNumber("arm speed in sub system ", -0.15);
-    arm.set(ControlMode.PercentOutput, -0.15);
+    //  arm.set(ControlMode.PercentOutput, -0.15);
   }
 
   @Override

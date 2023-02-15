@@ -133,6 +133,7 @@ public class RobotContainer {
                     MAX_VELOCITY_METERS_PER_SECOND);
 
             drivetrain = new Drivetrain(gyro, flModule, frModule, blModule, brModule);
+            armcontrol = new ArmSubsystem();
             //            new Pneumatics(new PneumaticsIORev());
             new Vision(new VisionIOPhotonVision(CAMERA_NAME));
             break;
@@ -151,6 +152,7 @@ public class RobotContainer {
             SwerveModule brModule =
                 new SwerveModule(new SwerveModuleIOSim(), 3, MAX_VELOCITY_METERS_PER_SECOND);
             drivetrain = new Drivetrain(new GyroIO() {}, flModule, frModule, blModule, brModule);
+            armcontrol = new ArmSubsystem();
             //           new Pneumatics(new PneumaticsIO() {});
             AprilTagFieldLayout layout;
             try {
@@ -250,7 +252,8 @@ public class RobotContainer {
     XStanceButton.onFalse(Commands.runOnce(drivetrain::disableXstance, drivetrain));
 
     // arm extend
-    //  Extendarm.onTrue(Commands.runOnce(armcontrol::setExtendArm, armcontrol));
+    // Extendarm.onTrue(Commands.runOnce(drivetrain::enableXstance, drivetrain));
+    Extendarm.onTrue(Commands.runOnce(armcontrol::setExtendArm, armcontrol));
     //   ResetGyroButton.onFalse(Commands.runOnce(armcontrol::setRetracrtArm, armcontrol));
   }
 
