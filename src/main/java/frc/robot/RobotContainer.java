@@ -33,6 +33,7 @@ import frc.lib.team3061.vision.VisionIO;
 import frc.lib.team3061.vision.VisionIOPhotonVision;
 import frc.lib.team3061.vision.VisionIOSim;
 import frc.robot.Constants.Mode;
+import frc.robot.commands.ArmExtendCommand;
 import frc.robot.commands.FeedForwardCharacterization;
 import frc.robot.commands.FeedForwardCharacterization.FeedForwardCharacterizationData;
 import frc.robot.commands.FollowPath;
@@ -62,8 +63,8 @@ public class RobotContainer {
       Retractarm = new JoystickButton(drivejoystick, 6),
       button7 = new JoystickButton(drivejoystick, 7),
       button8 = new JoystickButton(drivejoystick, 8),
-      button9 = new JoystickButton(drivejoystick, 8),
-      button10 = new JoystickButton(drivejoystick, 8);
+      button9 = new JoystickButton(drivejoystick, 9),
+      ExtendOveride = new JoystickButton(drivejoystick, 10);
 
   private Drivetrain drivetrain;
   private ArmSubsystem armcontrol;
@@ -182,6 +183,7 @@ public class RobotContainer {
       SwerveModule brModule =
           new SwerveModule(new SwerveModuleIO() {}, 3, MAX_VELOCITY_METERS_PER_SECOND);
       drivetrain = new Drivetrain(new GyroIO() {}, flModule, frModule, blModule, brModule);
+      armcontrol = new ArmSubsystem();
       //      new Pneumatics(new PneumaticsIO() {});
       new Vision(new VisionIO() {});
     }
@@ -213,13 +215,19 @@ public class RobotContainer {
      * and the left joystick's x axis specifies the velocity in the y direction.
      */
     //  drivetrain.setDefaultCommand(
-    //      new TeleopSwerve(drivetrain, oi::getTranslateX, oi::getTranslateY, oi::getRotate));
+    //   new TeleopSwerve(drivetrain, -drivejoystick.getRawAxis(1),-drivejoystick.getRawAxis(0),
+    // -drivejoystick.getRawAxis(3));
     drivetrain.setDefaultCommand(
         new TeleopSwerve(
             drivetrain,
             () -> -drivejoystick.getRawAxis(1),
             () -> -drivejoystick.getRawAxis(0),
             () -> -drivejoystick.getRawAxis(3))); // field vs robot drive
+
+    armcontrol.setDefaultCommand(
+        new ArmExtendCommand(armcontrol, ExtendOveride, () -> -drivejoystick.getRawAxis(4)));
+
+    //         () -> -drivejoystick.getRawAxis(4))); // field vs robot drive
 
     configureButtonBindings();
   }
