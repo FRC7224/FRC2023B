@@ -22,6 +22,17 @@ import frc.lib.team6328.util.Alert.AlertType;
  */
 public final class Constants {
 
+  ///////////////// CAN Constants //////////////////////////////
+
+  public static int ARM_EXTEND_PORT = 17;
+  public static int ARM_ROTATE_PORT_R = 14;
+  public static int ARM_ROTATE_PORT_L = 15;
+  public static int CLAW_R = 18;
+  public static int CLAW_L = 19;
+
+  public static double MED_ARM_PRESET = 12000;
+  public static double HIGH_ARM_PRESET = 28000;
+
   public static final double LOOP_PERIOD_SECS = 0.02;
 
   public static final boolean TUNING_MODE = false;
@@ -77,10 +88,6 @@ public final class Constants {
     SIM
   }
 
-  ///////////////// ARM extend //////////////////////////////////////////////////
-
-  public static int ARM_EXTEND_PORT = 14;
-
   /**
    * Which PID slot to pull gains from. Starting 2018, you can choose from 0,1,2 or 3. Only the
    * first two (0,1) are visible in web-based configuration.
@@ -100,16 +107,16 @@ public final class Constants {
   public static final int kTimeoutMs = 30;
 
   /* Choose so that Talon does not report sensor out of phase */
-  public static boolean kSensorPhase = true;
+  public static boolean kSensorPhase = false;
 
   /** Choose based on what direction you want to be positive, this does not affect motor invert. */
-  public static boolean kMotorInvert = false;
+  public static boolean kMotorInvert = true;
 
   /**
    * Gains used in Positon Closed Loop, to be adjusted accordingly Gains(kp, ki, kd, kf, izone, peak
    * output);
    */
-  public static final Gains kGains = new Gains(0.15, 0.0, 1.0, 0.0, 0, 1.0);
+  public static final Gains kGains = new Gains(0.03, 0.0, 1.0, 0.0, 0, 0.5);
 
   public static final double DEADBAND = 0.1;
 }

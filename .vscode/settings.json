@@ -57,5 +57,8 @@
     "tunables",
     "Vandermonde",
     "Xstance"
-  ]  
+  ],
+  "[java]": {
+    "editor.defaultFormatter": "redhat.java"
+  }
 }

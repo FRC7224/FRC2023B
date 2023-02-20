@@ -59,12 +59,14 @@ public class RobotContainer {
       XStanceButton = new JoystickButton(drivejoystick, 2),
       ResetGyroButton = new JoystickButton(drivejoystick, 3),
       FieldRelativeButton = new JoystickButton(drivejoystick, 4),
-      Extendarm = new JoystickButton(drivejoystick, 5),
-      Retractarm = new JoystickButton(drivejoystick, 6),
+      button5 = new JoystickButton(drivejoystick, 5),
+      button6 = new JoystickButton(drivejoystick, 6),
       button7 = new JoystickButton(drivejoystick, 7),
-      button8 = new JoystickButton(drivejoystick, 8),
-      button9 = new JoystickButton(drivejoystick, 9),
-      ExtendOveride = new JoystickButton(drivejoystick, 10);
+      ExtendOveride = new JoystickButton(drivejoystick, 8),
+      Medgoal = new JoystickButton(drivejoystick, 9),
+      Highgoal = new JoystickButton(drivejoystick, 10);
+  //  ExtendOveride = new JoystickButton(drivejoystick, 11);
+  //   button12 = new JoystickButton(drivejoystick, 12);
 
   private Drivetrain drivetrain;
   private ArmSubsystem armcontrol;
@@ -225,7 +227,9 @@ public class RobotContainer {
             () -> -drivejoystick.getRawAxis(3))); // field vs robot drive
 
     armcontrol.setDefaultCommand(
-        new ArmExtendCommand(armcontrol, ExtendOveride, () -> -drivejoystick.getRawAxis(4)));
+        new ArmExtendCommand(
+            armcontrol, ExtendOveride, Medgoal, Highgoal, () -> drivejoystick.getRawAxis(4)));
+    SmartDashboard.putNumber("joy_Before_arm", drivejoystick.getRawAxis(4));
 
     //         () -> -drivejoystick.getRawAxis(4))); // field vs robot drive
 
@@ -261,7 +265,7 @@ public class RobotContainer {
 
     // arm extend
     // Extendarm.onTrue(Commands.runOnce(drivetrain::enableXstance, drivetrain));
-    Extendarm.onTrue(Commands.runOnce(armcontrol::setExtendArm, armcontrol));
+    //  Extendarm.onTrue(Commands.runOnce(armcontrol::setExtendArm, armcontrol));
     //   ResetGyroButton.onFalse(Commands.runOnce(armcontrol::setRetracrtArm, armcontrol));
   }
 

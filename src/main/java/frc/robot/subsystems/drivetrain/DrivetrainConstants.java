@@ -16,16 +16,25 @@ public final class DrivetrainConstants {
 
   // FIXME: update all CAN IDs
   // FIXME: update all steer offsets
+  //  public static int FRONT_LEFT_MODULE_DRIVE_MOTOR = 12;///  public static int
+  // FRONT_LEFT_MODULE_STEER_MOTOR = 10;
+  //  public static int FRONT_LEFT_MODULE_STEER_ENCODER = 11;
+  //  public static final double FRONT_LEFT_MODULE_STEER_OFFSET = 222.00;
 
-  public static int FRONT_LEFT_MODULE_DRIVE_MOTOR = 12;
-  public static int FRONT_LEFT_MODULE_STEER_MOTOR = 10;
-  public static int FRONT_LEFT_MODULE_STEER_ENCODER = 11;
-  public static final double FRONT_LEFT_MODULE_STEER_OFFSET = 222.00;
+  //  public static int FRONT_RIGHT_MODULE_DRIVE_MOTOR = 3;
+  //  public static int FRONT_RIGHT_MODULE_STEER_MOTOR = 1;
+  //  public static int FRONT_RIGHT_MODULE_STEER_ENCODER = 2;
+  //  public static final double FRONT_RIGHT_MODULE_STEER_OFFSET = 292;
 
-  public static int FRONT_RIGHT_MODULE_DRIVE_MOTOR = 3;
-  public static int FRONT_RIGHT_MODULE_STEER_MOTOR = 1;
-  public static int FRONT_RIGHT_MODULE_STEER_ENCODER = 2;
-  public static final double FRONT_RIGHT_MODULE_STEER_OFFSET = 292;
+  public static int FRONT_LEFT_MODULE_DRIVE_MOTOR = 3;
+  public static int FRONT_LEFT_MODULE_STEER_MOTOR = 1;
+  public static int FRONT_LEFT_MODULE_STEER_ENCODER = 2;
+  public static final double FRONT_LEFT_MODULE_STEER_OFFSET = 206;
+
+  public static int FRONT_RIGHT_MODULE_DRIVE_MOTOR = 12;
+  public static int FRONT_RIGHT_MODULE_STEER_MOTOR = 10;
+  public static int FRONT_RIGHT_MODULE_STEER_ENCODER = 11;
+  public static final double FRONT_RIGHT_MODULE_STEER_OFFSET = 311;
 
   public static int BACK_LEFT_MODULE_DRIVE_MOTOR = 9;
   public static int BACK_LEFT_MODULE_STEER_MOTOR = 7;

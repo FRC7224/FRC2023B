@@ -80,11 +80,13 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public static double GetMotorOutputPercent() {
+    SmartDashboard.putNumber("getMotorOutputPercent", arm.getMotorOutputPercent());
     return (arm.getMotorOutputPercent());
   }
   ;
 
   public static double GetSelectedSensorPosition() {
+
     return (arm.getSelectedSensorPosition(0));
   }
   ;
@@ -100,6 +102,7 @@ public class ArmSubsystem extends SubsystemBase {
   ;
 
   public void SetTargetPositionRotations(double targetPositionRotations) {
+
     arm.set(ControlMode.Position, targetPositionRotations);
   }
   ;
@@ -127,6 +130,7 @@ public class ArmSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+
     // This method will be called once per scheduler run
 
   }
