@@ -2,7 +2,6 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.can.*;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -17,9 +16,6 @@ public class ArmSubsystem extends SubsystemBase {
   StringBuilder _sb = new StringBuilder();
 
   int _loops = 0;
-
-  /** Track button state for single press event */
-  boolean _lastButton1 = false;
 
   /** Save the target position to servo to */
   double targetPositionRotations;

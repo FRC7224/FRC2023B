@@ -30,9 +30,6 @@ public final class Constants {
   public static int CLAW_R = 18;
   public static int CLAW_L = 19;
 
-  public static double MED_ARM_PRESET = 12000;
-  public static double HIGH_ARM_PRESET = 28000;
-
   public static final double LOOP_PERIOD_SECS = 0.02;
 
   public static final boolean TUNING_MODE = false;
@@ -88,6 +85,12 @@ public final class Constants {
     SIM
   }
 
+  ////// ARM Extend Constants ///////////////////////////
+
+  public static double MED_ARM_PRESET = 12000;
+  public static double HIGH_ARM_PRESET = 28000;
+  public static double OV_ARM = 0.1;
+
   /**
    * Which PID slot to pull gains from. Starting 2018, you can choose from 0,1,2 or 3. Only the
    * first two (0,1) are visible in web-based configuration.
@@ -119,4 +122,66 @@ public final class Constants {
   public static final Gains kGains = new Gains(0.03, 0.0, 1.0, 0.0, 0, 0.5);
 
   public static final double DEADBAND = 0.1;
+
+  ////// ARM Rotate 1 Constants ///////////////////////////
+
+  public static double MED_ROT_PRESET = 3000;
+  public static double HIGH_ROT_PRESET = 5000;
+  public static double OV_ROT_ARM = 0.1;
+
+  /**
+   * Which PID slot to pull gains from. Starting 2018, you can choose from 0,1,2 or 3. Only the
+   * first two (0,1) are visible in web-based configuration.
+   */
+  public static final int krotate1SlotIdx = 0;
+
+  /** Talon FX supports multiple (cascaded) PID loops. For now we just want the primary one. */
+  public static final int krotate1PIDLoopIdx = 0;
+
+  /**
+   * Set to zero to skip waiting for confirmation, set to nonzero to wait and report to DS if action
+   * fails.
+   */
+  public static final int krotate1TimeoutMs = 30;
+
+  /* Choose so that Talon does not report sensor out of phase */
+  public static boolean krotate1SensorPhase = true;
+
+  /** Choose based on what direction you want to be positive, this does not affect motor invert. */
+  public static boolean krotate1MotorInvert = false;
+
+  /**
+   * Gains used in Positon Closed Loop, to be adjusted accordingly Gains(kp, ki, kd, kf, izone, peak
+   * output);
+   */
+  public static final Gains kGainsR1 = new Gains(0.05, 0.0, 1.0, 0.0, 0, 0.5);
+
+  ////// ARM Rotate 2 Constants ///////////////////////////
+
+  /**
+   * Which PID slot to pull gains from. Starting 2018, you can choose from 0,1,2 or 3. Only the
+   * first two (0,1) are visible in web-based configuration.
+   */
+  public static final int krotate2SlotIdx = 0;
+
+  /** Talon FX supports multiple (cascaded) PID loops. For now we just want the primary one. */
+  public static final int krotate2PIDLoopIdx = 0;
+
+  /**
+   * Set to zero to skip waiting for confirmation, set to nonzero to wait and report to DS if action
+   * fails.
+   */
+  public static final int krotate2TimeoutMs = 30;
+
+  /* Choose so that Talon does not report sensor out of phase */
+  public static boolean krotate2SensorPhase = true;
+
+  /** Choose based on what direction you want to be positive, this does not affect motor invert. */
+  public static boolean krotate2MotorInvert = false;
+
+  /**
+   * Gains used in Positon Closed Loop, to be adjusted accordingly Gains(kp, ki, kd, kf, izone, peak
+   * output);
+   */
+  public static final Gains kGainsR2 = new Gains(0.05, 0.0, 1.0, 0.0, 0, 0.5);
 }

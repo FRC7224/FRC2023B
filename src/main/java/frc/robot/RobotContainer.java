@@ -34,10 +34,12 @@ import frc.lib.team3061.vision.VisionIOPhotonVision;
 import frc.lib.team3061.vision.VisionIOSim;
 import frc.robot.Constants.Mode;
 import frc.robot.commands.ArmExtendCommand;
+import frc.robot.commands.ArmRotateCommand;
 import frc.robot.commands.FeedForwardCharacterization;
 import frc.robot.commands.FeedForwardCharacterization.FeedForwardCharacterizationData;
 import frc.robot.commands.FollowPath;
 import frc.robot.commands.TeleopSwerve;
+import frc.robot.subsystems.ArmRotateSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.drivetrain.Drivetrain;
 import java.io.IOException;
@@ -57,19 +59,20 @@ public class RobotContainer {
   final Joystick drivejoystick = new Joystick(0);
   JoystickButton button1 = new JoystickButton(drivejoystick, 1),
       XStanceButton = new JoystickButton(drivejoystick, 2),
-      ResetGyroButton = new JoystickButton(drivejoystick, 3),
+      RotateoverideButton = new JoystickButton(drivejoystick, 3),
       FieldRelativeButton = new JoystickButton(drivejoystick, 4),
-      button5 = new JoystickButton(drivejoystick, 5),
-      button6 = new JoystickButton(drivejoystick, 6),
+      MedrotateButton = new JoystickButton(drivejoystick, 5),
+      HighrotateButton = new JoystickButton(drivejoystick, 6),
       button7 = new JoystickButton(drivejoystick, 7),
       ExtendOveride = new JoystickButton(drivejoystick, 8),
       Medgoal = new JoystickButton(drivejoystick, 9),
       Highgoal = new JoystickButton(drivejoystick, 10);
-  //  ExtendOveride = new JoystickButton(drivejoystick, 11);
+  //  button11 = new JoystickButton(drivejoystick, 11);
   //   button12 = new JoystickButton(drivejoystick, 12);
 
   private Drivetrain drivetrain;
   private ArmSubsystem armcontrol;
+  private ArmRotateSubsystem armrotatecontrol;
 
   // use AdvantageKit's LoggedDashboardChooser instead of SendableChooser to ensure accurate logging
   private final LoggedDashboardChooser<Command> autoChooser =
@@ -137,6 +140,7 @@ public class RobotContainer {
 
             drivetrain = new Drivetrain(gyro, flModule, frModule, blModule, brModule);
             armcontrol = new ArmSubsystem();
+            armrotatecontrol = new ArmRotateSubsystem();
             //            new Pneumatics(new PneumaticsIORev());
             new Vision(new VisionIOPhotonVision(CAMERA_NAME));
             break;
@@ -156,6 +160,7 @@ public class RobotContainer {
                 new SwerveModule(new SwerveModuleIOSim(), 3, MAX_VELOCITY_METERS_PER_SECOND);
             drivetrain = new Drivetrain(new GyroIO() {}, flModule, frModule, blModule, brModule);
             armcontrol = new ArmSubsystem();
+            armrotatecontrol = new ArmRotateSubsystem();
             //           new Pneumatics(new PneumaticsIO() {});
             AprilTagFieldLayout layout;
             try {
@@ -186,6 +191,7 @@ public class RobotContainer {
           new SwerveModule(new SwerveModuleIO() {}, 3, MAX_VELOCITY_METERS_PER_SECOND);
       drivetrain = new Drivetrain(new GyroIO() {}, flModule, frModule, blModule, brModule);
       armcontrol = new ArmSubsystem();
+      armrotatecontrol = new ArmRotateSubsystem();
       //      new Pneumatics(new PneumaticsIO() {});
       new Vision(new VisionIO() {});
     }
@@ -229,9 +235,14 @@ public class RobotContainer {
     armcontrol.setDefaultCommand(
         new ArmExtendCommand(
             armcontrol, ExtendOveride, Medgoal, Highgoal, () -> drivejoystick.getRawAxis(4)));
-    SmartDashboard.putNumber("joy_Before_arm", drivejoystick.getRawAxis(4));
 
-    //         () -> -drivejoystick.getRawAxis(4))); // field vs robot drive
+    armrotatecontrol.setDefaultCommand(
+        new ArmRotateCommand(
+            armrotatecontrol,
+            RotateoverideButton,
+            MedrotateButton,
+            HighrotateButton,
+            () -> drivejoystick.getRawAxis(2)));
 
     configureButtonBindings();
   }
@@ -257,7 +268,7 @@ public class RobotContainer {
             drivetrain::getFieldRelative));
 
     // reset gyro to 0 degrees
-    ResetGyroButton.onTrue(Commands.runOnce(drivetrain::zeroGyroscope, drivetrain));
+    // ResetGyroButton.onTrue(Commands.runOnce(drivetrain::zeroGyroscope, drivetrain));
 
     // x-stance
     XStanceButton.onTrue(Commands.runOnce(drivetrain::enableXstance, drivetrain));

@@ -1,10 +1,10 @@
 package frc.robot.commands;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants;
+import frc.robot.subsystems.ArmRotateSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
 import java.util.function.DoubleSupplier;
 import org.littletonrobotics.junction.Logger;
@@ -20,15 +20,14 @@ import org.littletonrobotics.junction.Logger;
  *
  * <p>At End: stops the drivetrain
  */
-public class ArmExtendCommand extends CommandBase {
+public class ArmRotateCommand extends CommandBase {
 
-  private final ArmSubsystem armsubsystem;
-  private final DoubleSupplier translationXSupplier;
-  private final JoystickButton extendoverideButton;
-  private final JoystickButton medgoalButton;
-  private final JoystickButton highgoalButton;
+  private final ArmRotateSubsystem armrotatesubsystem;
+  private final DoubleSupplier translationRSupplier;
+  private final JoystickButton rotateoverideButton;
+  private final JoystickButton medrotateButton;
+  private final JoystickButton highrotateButton;
 
-  double extendamount = 0;
   double targetPositionRotations = 0;
   /** Used to create string thoughout loop */
   StringBuilder _sb = new StringBuilder();
@@ -43,26 +42,25 @@ public class ArmExtendCommand extends CommandBase {
    *     maximum velocity as defined by the standard field or robot coordinate system
    * @return
    */
-  public ArmExtendCommand(
-      ArmSubsystem armsubsystem,
-      JoystickButton extendoverideButton,
-      JoystickButton medgoalButton,
-      JoystickButton highgoalButton,
-      DoubleSupplier translationXSupplier) {
-    this.armsubsystem = armsubsystem;
-    this.extendoverideButton = extendoverideButton;
-    this.medgoalButton = medgoalButton;
-    this.highgoalButton = highgoalButton;
-    this.translationXSupplier = translationXSupplier;
+  public ArmRotateCommand(
+      ArmRotateSubsystem armrotatesubsystem,
+      JoystickButton rotateoverideButton,
+      JoystickButton medrotateButton,
+      JoystickButton highrotateButton,
+      DoubleSupplier translationRSupplier) {
+    this.armrotatesubsystem = armrotatesubsystem;
+    this.rotateoverideButton = rotateoverideButton;
+    this.medrotateButton = medrotateButton;
+    this.highrotateButton = highrotateButton;
+    this.translationRSupplier = translationRSupplier;
 
-    addRequirements(armsubsystem);
+    addRequirements(armrotatesubsystem);
   }
 
   public void execute() {
     /* Gamepad processing */
 
-    double extendcontrol = modifyAxis(translationXSupplier.getAsDouble());
-    SmartDashboard.putNumber("extendcontrol", extendcontrol);
+    double rotatecontrol = modifyAxis(translationRSupplier.getAsDouble());
 
     double motorOutput;
 
@@ -83,32 +81,37 @@ public class ArmExtendCommand extends CommandBase {
      * When button 1 is pressed, perform Position Closed Loop to selected position, indicated by
      * Joystick position x10, [-10, 10] rotations
      */
-    if (extendoverideButton.getAsBoolean()) {
+    if (rotateoverideButton.getAsBoolean()) {
       /* When button is held, just straight drive */
       /* Percent Output */
-      armsubsystem.SetPercentOutput(extendcontrol * Constants.OV_ARM);
-    } else if (medgoalButton.getAsBoolean()) {
-      targetPositionRotations = Constants.MED_ARM_PRESET;
-      armsubsystem.SetTargetPositionRotations(targetPositionRotations);
-    } else if (highgoalButton.getAsBoolean()) {
-      targetPositionRotations = Constants.HIGH_ARM_PRESET;
-      armsubsystem.SetTargetPositionRotations(targetPositionRotations);
+      armrotatesubsystem.SetPercentOutputR1(rotatecontrol * Constants.OV_ROT_ARM);
+      armrotatesubsystem.SetPercentOutputR1(rotatecontrol * -Constants.OV_ROT_ARM);
+    } else if (medrotateButton.getAsBoolean()) {
+      targetPositionRotations = Constants.MED_ROT_PRESET;
+      armrotatesubsystem.SetTargetPositionRotationsR1(targetPositionRotations);
+      armrotatesubsystem.SetTargetPositionRotationsR2(-targetPositionRotations);
+    } else if (highrotateButton.getAsBoolean()) {
+      targetPositionRotations = Constants.HIGH_ROT_PRESET;
+      armrotatesubsystem.SetTargetPositionRotationsR1(targetPositionRotations);
+      armrotatesubsystem.SetTargetPositionRotationsR2(targetPositionRotations);
     } else {
       /* Position Closed Loop */
       /* 7.5 Rotations * 4096 u/rev in either direction */
-      extendamount = extendcontrol;
-      if (extendcontrol <= 0.0) {
-        extendamount = 0;
-      }
-      targetPositionRotations = extendamount * 7.5 * 4096;
-      armsubsystem.SetTargetPositionRotations(targetPositionRotations);
+
+      targetPositionRotations = rotatecontrol * 2 * 4096;
+      armrotatesubsystem.SetTargetPositionRotationsR1(targetPositionRotations);
+      armrotatesubsystem.SetTargetPositionRotationsR1(-targetPositionRotations);
     }
 
     /* If Talon is in position closed-loop, print some more info */
-    if (armsubsystem.GetControlMode() == ControlMode.Position) {
+    if (armrotatesubsystem.GetControlModeR1() == ControlMode.Position) {
       /* ppend more signals to print when in speed mode. */
-      _sb.append("\terr:");
-      _sb.append(armsubsystem.GetClosedLoopError());
+      _sb.append("\terr R1:");
+      _sb.append(armrotatesubsystem.GetClosedLoopErrorR1());
+      _sb.append("u"); // Native Units
+
+      _sb.append("\terr R2:");
+      _sb.append(armrotatesubsystem.GetClosedLoopErrorR2());
       _sb.append("u"); // Native Units
 
       _sb.append("\ttrg:");
@@ -128,7 +131,7 @@ public class ArmExtendCommand extends CommandBase {
 
   @Override
   public void end(boolean interrupted) {
-    this.armsubsystem.stop();
+    this.armrotatesubsystem.stop();
 
     super.end(interrupted);
 
