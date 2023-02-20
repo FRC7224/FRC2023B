@@ -123,7 +123,7 @@ public final class Constants {
    * Gains used in Positon Closed Loop, to be adjusted accordingly Gains(kp, ki, kd, kf, izone, peak
    * output);
    */
-  public static final Gains kGains = new Gains(0.03, 0.0, 1.0, 0.0, 0, 0.5);
+  public static final Gains kGains = new Gains(0.03, 0.0, 1.0, 0.0, 0, 0.7);
 
   public static final double DEADBAND = 0.1;
 
@@ -158,7 +158,7 @@ public final class Constants {
    * Gains used in Positon Closed Loop, to be adjusted accordingly Gains(kp, ki, kd, kf, izone, peak
    * output);
    */
-  public static final Gains kGainsR1 = new Gains(0.05, 0.0, 1.0, 0.0, 0, 0.5);
+  public static final Gains kGainsR1 = new Gains(0.01, 0.0, 0.5, 0.0, 0, 0.5);
 
   ////// ARM Rotate 2 Constants ///////////////////////////
 
@@ -187,5 +187,5 @@ public final class Constants {
    * Gains used in Positon Closed Loop, to be adjusted accordingly Gains(kp, ki, kd, kf, izone, peak
    * output);
    */
-  public static final Gains kGainsR2 = new Gains(0.05, 0.0, 1.0, 0.0, 0, 0.5);
+  public static final Gains kGainsR2 = new Gains(0.01, 0.0, 0.5, 0.0, 0, 0.5);
 }

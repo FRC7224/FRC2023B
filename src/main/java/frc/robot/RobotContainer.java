@@ -244,7 +244,7 @@ public class RobotContainer {
             RotateoverideButton,
             MedrotateButton,
             HighrotateButton,
-            () -> drivejoystick.getRawAxis(2)));
+            () -> -drivejoystick.getRawAxis(2)));
 
     configureButtonBindings();
   }

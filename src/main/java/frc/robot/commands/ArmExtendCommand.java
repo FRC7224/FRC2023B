@@ -100,7 +100,7 @@ public class ArmExtendCommand extends CommandBase {
       if (extendcontrol <= 0.0) {
         extendamount = 0;
       }
-      targetPositionRotations = extendamount * 7.5 * 4096;
+      targetPositionRotations = extendamount * 7.25 * 4096;
       armsubsystem.SetTargetPositionRotations(targetPositionRotations);
     }
 

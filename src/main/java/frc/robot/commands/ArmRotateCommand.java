@@ -96,9 +96,9 @@ public class ArmRotateCommand extends CommandBase {
       armrotatesubsystem.SetTargetPositionRotationsR2(-targetPositionRotations);
     } else {
       /* Position Closed Loop */
-      /* 10 Rotations * 4096 u/rev in either direction */
+      /* 11.5 Rotations * 4096 u/rev in either direction */
 
-      targetPositionRotations = rotatecontrol * 10 * 4096;
+      targetPositionRotations = rotatecontrol * 11.4 * 4096;
       armrotatesubsystem.SetTargetPositionRotationsR1(targetPositionRotations);
       armrotatesubsystem.SetTargetPositionRotationsR2(-targetPositionRotations);
     }
