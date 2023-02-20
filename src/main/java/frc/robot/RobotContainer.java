@@ -41,6 +41,7 @@ import frc.robot.commands.FollowPath;
 import frc.robot.commands.TeleopSwerve;
 import frc.robot.subsystems.ArmRotateSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.ClawSubsystem;
 import frc.robot.subsystems.drivetrain.Drivetrain;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -57,7 +58,7 @@ public class RobotContainer {
   // private OperatorInterface oi = new OperatorInterface() {};
 
   final Joystick drivejoystick = new Joystick(0);
-  JoystickButton button1 = new JoystickButton(drivejoystick, 1),
+  JoystickButton ClawOn = new JoystickButton(drivejoystick, 1),
       XStanceButton = new JoystickButton(drivejoystick, 2),
       RotateoverideButton = new JoystickButton(drivejoystick, 3),
       FieldRelativeButton = new JoystickButton(drivejoystick, 4),
@@ -73,6 +74,7 @@ public class RobotContainer {
   private Drivetrain drivetrain;
   private ArmSubsystem armcontrol;
   private ArmRotateSubsystem armrotatecontrol;
+  private ClawSubsystem clawsubsystem;
 
   // use AdvantageKit's LoggedDashboardChooser instead of SendableChooser to ensure accurate logging
   private final LoggedDashboardChooser<Command> autoChooser =
@@ -141,7 +143,7 @@ public class RobotContainer {
             drivetrain = new Drivetrain(gyro, flModule, frModule, blModule, brModule);
             armcontrol = new ArmSubsystem();
             armrotatecontrol = new ArmRotateSubsystem();
-            //            new Pneumatics(new PneumaticsIORev());
+            clawsubsystem = new ClawSubsystem();
             new Vision(new VisionIOPhotonVision(CAMERA_NAME));
             break;
           }
@@ -161,7 +163,7 @@ public class RobotContainer {
             drivetrain = new Drivetrain(new GyroIO() {}, flModule, frModule, blModule, brModule);
             armcontrol = new ArmSubsystem();
             armrotatecontrol = new ArmRotateSubsystem();
-            //           new Pneumatics(new PneumaticsIO() {});
+            clawsubsystem = new ClawSubsystem();
             AprilTagFieldLayout layout;
             try {
               layout = new AprilTagFieldLayout(VisionConstants.APRILTAG_FIELD_LAYOUT_PATH);
@@ -192,7 +194,7 @@ public class RobotContainer {
       drivetrain = new Drivetrain(new GyroIO() {}, flModule, frModule, blModule, brModule);
       armcontrol = new ArmSubsystem();
       armrotatecontrol = new ArmRotateSubsystem();
-      //      new Pneumatics(new PneumaticsIO() {});
+      clawsubsystem = new ClawSubsystem();
       new Vision(new VisionIO() {});
     }
 
@@ -268,7 +270,8 @@ public class RobotContainer {
             drivetrain::getFieldRelative));
 
     // reset gyro to 0 degrees
-    // ResetGyroButton.onTrue(Commands.runOnce(drivetrain::zeroGyroscope, drivetrain));
+    ClawOn.onTrue(Commands.runOnce(clawsubsystem::SetClawOn, clawsubsystem));
+    ClawOn.onFalse(Commands.runOnce(clawsubsystem::stop, clawsubsystem));
 
     // x-stance
     XStanceButton.onTrue(Commands.runOnce(drivetrain::enableXstance, drivetrain));

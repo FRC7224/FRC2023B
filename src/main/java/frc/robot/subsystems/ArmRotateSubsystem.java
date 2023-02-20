@@ -70,7 +70,7 @@ public class ArmRotateSubsystem extends SubsystemBase {
 
     /////////////////  Motor Two ////////////////////////////////////////////////
     /* Factory Default all hardware to prevent unexpected behaviour */
-    rotate1.configFactoryDefault();
+    rotate2.configFactoryDefault();
 
     /* Config the sensor used for Primary PID and sensor direction */
     rotate2.configSelectedFeedbackSensor(

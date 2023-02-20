@@ -85,7 +85,7 @@ public class ArmRotateCommand extends CommandBase {
       /* When button is held, just straight drive */
       /* Percent Output */
       armrotatesubsystem.SetPercentOutputR1(rotatecontrol * Constants.OV_ROT_ARM);
-      armrotatesubsystem.SetPercentOutputR1(rotatecontrol * -Constants.OV_ROT_ARM);
+      armrotatesubsystem.SetPercentOutputR2(rotatecontrol * -Constants.OV_ROT_ARM);
     } else if (medrotateButton.getAsBoolean()) {
       targetPositionRotations = Constants.MED_ROT_PRESET;
       armrotatesubsystem.SetTargetPositionRotationsR1(targetPositionRotations);
@@ -93,14 +93,14 @@ public class ArmRotateCommand extends CommandBase {
     } else if (highrotateButton.getAsBoolean()) {
       targetPositionRotations = Constants.HIGH_ROT_PRESET;
       armrotatesubsystem.SetTargetPositionRotationsR1(targetPositionRotations);
-      armrotatesubsystem.SetTargetPositionRotationsR2(targetPositionRotations);
+      armrotatesubsystem.SetTargetPositionRotationsR2(-targetPositionRotations);
     } else {
       /* Position Closed Loop */
-      /* 7.5 Rotations * 4096 u/rev in either direction */
+      /* 10 Rotations * 4096 u/rev in either direction */
 
-      targetPositionRotations = rotatecontrol * 2 * 4096;
+      targetPositionRotations = rotatecontrol * 10 * 4096;
       armrotatesubsystem.SetTargetPositionRotationsR1(targetPositionRotations);
-      armrotatesubsystem.SetTargetPositionRotationsR1(-targetPositionRotations);
+      armrotatesubsystem.SetTargetPositionRotationsR2(-targetPositionRotations);
     }
 
     /* If Talon is in position closed-loop, print some more info */

@@ -85,6 +85,10 @@ public final class Constants {
     SIM
   }
 
+  ////// Claw  Constants ///////////////////////////
+
+  public static double CLAW_SPEED = -0.07;
+
   ////// ARM Extend Constants ///////////////////////////
 
   public static double MED_ARM_PRESET = 12000;
