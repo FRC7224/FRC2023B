@@ -235,7 +235,7 @@ public class RobotContainer {
             () -> -drivejoystick.getRawAxis(3))); // field vs robot drive
 
     armcontrol.setDefaultCommand(
-        new ArmExtendCommand(
+        new ArmExtendCommand( // use same button for preset rotate and extend
             armcontrol, ExtendOveride, Medgoal, Highgoal, () -> drivejoystick.getRawAxis(4)));
 
     armrotatecontrol.setDefaultCommand(
@@ -269,7 +269,7 @@ public class RobotContainer {
             Commands.runOnce(drivetrain::enableFieldRelative, drivetrain),
             drivetrain::getFieldRelative));
 
-    // reset gyro to 0 degrees
+    // reset close ope claw
     ClawOn.onTrue(Commands.runOnce(clawsubsystem::SetClawOn, clawsubsystem));
     ClawOn.onFalse(Commands.runOnce(clawsubsystem::stop, clawsubsystem));
 
