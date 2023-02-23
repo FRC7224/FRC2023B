@@ -91,8 +91,11 @@ public final class Constants {
 
   ////// ARM Extend Constants ///////////////////////////
 
+  public static double MAX_ARM = 8.1 * 4096;
+  public static double MAX48_ARM = 7.0 * 4096;
   public static double MED_ARM_PRESET = 12000;
-  public static double HIGH_ARM_PRESET = 28000;
+  public static double HIGH_ARM_PRESET = 8.1 * 4096; //
+  public static double ARM_OFFSET = 3200; //
   public static double OV_ARM = 0.1;
 
   /**
@@ -123,14 +126,17 @@ public final class Constants {
    * Gains used in Positon Closed Loop, to be adjusted accordingly Gains(kp, ki, kd, kf, izone, peak
    * output);
    */
-  public static final Gains kGains = new Gains(0.03, 0.0, 1.0, 0.0, 0, 0.7);
+  public static final Gains kGains = new Gains(0.04, 0.0, 0.1, 0.0, 0, 1.0);
 
   public static final double DEADBAND = 0.1;
 
   ////// ARM Rotate 1 Constants ///////////////////////////
 
-  public static double MED_ROT_PRESET = 3000;
-  public static double HIGH_ROT_PRESET = 5000;
+  public static double ROT_MAX = 12.25 * 4096;
+  public static double LOW48_ROT = 20000;
+  public static double HIGH48_ROT = 30000;
+  public static double MED_ROT_PRESET = 35000;
+  public static double HIGH_ROT_PRESET = 25000;
   public static double OV_ROT_ARM = 0.1;
 
   /**
@@ -158,7 +164,7 @@ public final class Constants {
    * Gains used in Positon Closed Loop, to be adjusted accordingly Gains(kp, ki, kd, kf, izone, peak
    * output);
    */
-  public static final Gains kGainsR1 = new Gains(0.01, 0.0, 0.5, 0.0, 0, 0.5);
+  public static final Gains kGainsR1 = new Gains(0.01, 0.0, 0.5, 0.0, 0, 0.9);
 
   ////// ARM Rotate 2 Constants ///////////////////////////
 
@@ -187,5 +193,5 @@ public final class Constants {
    * Gains used in Positon Closed Loop, to be adjusted accordingly Gains(kp, ki, kd, kf, izone, peak
    * output);
    */
-  public static final Gains kGainsR2 = new Gains(0.01, 0.0, 0.5, 0.0, 0, 0.5);
+  public static final Gains kGainsR2 = new Gains(0.01, 0.0, 0.5, 0.0, 0, 0.9);
 }

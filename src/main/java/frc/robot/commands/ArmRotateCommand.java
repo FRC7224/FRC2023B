@@ -87,18 +87,27 @@ public class ArmRotateCommand extends CommandBase {
       armrotatesubsystem.SetPercentOutputR1(rotatecontrol * Constants.OV_ROT_ARM);
       armrotatesubsystem.SetPercentOutputR2(rotatecontrol * -Constants.OV_ROT_ARM);
     } else if (medrotateButton.getAsBoolean()) {
-      targetPositionRotations = Constants.MED_ROT_PRESET;
+      if (targetPositionRotations >= 0) { // check to see if arm is rotated backwards
+        targetPositionRotations = Constants.MED_ROT_PRESET;
+      } else {
+        targetPositionRotations = -Constants.MED_ROT_PRESET;
+      }
       armrotatesubsystem.SetTargetPositionRotationsR1(targetPositionRotations);
       armrotatesubsystem.SetTargetPositionRotationsR2(-targetPositionRotations);
     } else if (highrotateButton.getAsBoolean()) {
+      if (targetPositionRotations >= 0) { // check to see if arm is rotated backwards
+        targetPositionRotations = Constants.MED_ROT_PRESET;
+      } else {
+        targetPositionRotations = -Constants.MED_ROT_PRESET;
+      }
       targetPositionRotations = Constants.HIGH_ROT_PRESET;
       armrotatesubsystem.SetTargetPositionRotationsR1(targetPositionRotations);
       armrotatesubsystem.SetTargetPositionRotationsR2(-targetPositionRotations);
     } else {
       /* Position Closed Loop */
-      /* 11.5 Rotations * 4096 u/rev in either direction */
+      /* x *  Rotations * 4096 u/rev in either direction */
 
-      targetPositionRotations = rotatecontrol * 11.4 * 4096;
+      targetPositionRotations = rotatecontrol * Constants.ROT_MAX;
       armrotatesubsystem.SetTargetPositionRotationsR1(targetPositionRotations);
       armrotatesubsystem.SetTargetPositionRotationsR2(-targetPositionRotations);
     }

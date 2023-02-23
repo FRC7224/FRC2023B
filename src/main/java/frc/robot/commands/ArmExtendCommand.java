@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants;
+import frc.robot.GlobalStatus;
 import frc.robot.subsystems.ArmSubsystem;
 import java.util.function.DoubleSupplier;
 import org.littletonrobotics.junction.Logger;
@@ -100,26 +101,38 @@ public class ArmExtendCommand extends CommandBase {
       if (extendcontrol <= 0.0) {
         extendamount = 0;
       }
-      targetPositionRotations = extendamount * 7.25 * 4096;
-      armsubsystem.SetTargetPositionRotations(targetPositionRotations);
+      targetPositionRotations = (extendamount * Constants.MAX_ARM);
+      if ((GlobalStatus.Global_Rotate1_position <= Constants.LOW48_ROT)
+          && (targetPositionRotations >= Constants.MAX48_ARM)) {
+        targetPositionRotations = Constants.MAX48_ARM;
+      }
+      ;
+
+      if ((GlobalStatus.Global_Rotate1_position >= Constants.HIGH48_ROT)
+          && (targetPositionRotations >= Constants.MAX48_ARM)) {
+        targetPositionRotations = Constants.MAX48_ARM;
+      }
+      ;
+
+      armsubsystem.SetTargetPositionRotations(targetPositionRotations - Constants.ARM_OFFSET);
     }
 
     /* If Talon is in position closed-loop, print some more info */
     if (armsubsystem.GetControlMode() == ControlMode.Position) {
       /* ppend more signals to print when in speed mode. */
-      _sb.append("\terr:");
-      _sb.append(armsubsystem.GetClosedLoopError());
-      _sb.append("u"); // Native Units
+      //   _sb.append("\terr:");
+      //    _sb.append(armsubsystem.GetClosedLoopError());
+      //   _sb.append("u"); // Native Units
 
-      _sb.append("\ttrg:");
-      _sb.append(targetPositionRotations);
-      _sb.append("u"); // / Native Units
+      //   _sb.append("\ttrg:");
+      //   _sb.append(targetPositionRotations);
+      //   _sb.append("u"); // / Native Units
     }
 
     /** Print every ten loops, printing too much too fast is generally bad for performance. */
     if (++_loops >= 10) {
       _loops = 0;
-      System.out.println(_sb.toString());
+      //   System.out.println(_sb.toString());
     }
 
     /* Reset built string for next loop */

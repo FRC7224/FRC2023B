@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.GlobalStatus;
 
 /** */
 public class ArmRotateSubsystem extends SubsystemBase {
@@ -137,8 +138,8 @@ public class ArmRotateSubsystem extends SubsystemBase {
   ;
 
   public void SetTargetPositionRotationsR1(double targetPositionRotations) {
-
     rotate1.set(ControlMode.Position, targetPositionRotations);
+    GlobalStatus.Global_Rotate1_position = targetPositionRotations;
   }
   ;
 
@@ -171,6 +172,7 @@ public class ArmRotateSubsystem extends SubsystemBase {
 
   public void SetTargetPositionRotationsR2(double targetPositionRotations) {
     rotate2.set(ControlMode.Position, targetPositionRotations);
+    GlobalStatus.Global_Rotate2_position = targetPositionRotations;
   }
   ;
 
