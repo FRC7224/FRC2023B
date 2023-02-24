@@ -102,13 +102,13 @@ public class ArmExtendCommand extends CommandBase {
         extendamount = 0;
       }
       targetPositionRotations = (extendamount * Constants.MAX_ARM);
-      if ((GlobalStatus.Global_Rotate1_position <= Constants.LOW48_ROT)
+      if ((Math.abs(GlobalStatus.Global_Rotate1_position) <= Constants.LOW48_ROT)
           && (targetPositionRotations >= Constants.MAX48_ARM)) {
         targetPositionRotations = Constants.MAX48_ARM;
       }
       ;
 
-      if ((GlobalStatus.Global_Rotate1_position >= Constants.HIGH48_ROT)
+      if ((Math.abs(GlobalStatus.Global_Rotate1_position) >= Constants.HIGH48_ROT)
           && (targetPositionRotations >= Constants.MAX48_ARM)) {
         targetPositionRotations = Constants.MAX48_ARM;
       }

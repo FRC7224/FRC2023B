@@ -62,8 +62,8 @@ public class RobotContainer {
       XStanceButton = new JoystickButton(drivejoystick, 2),
       RotateoverideButton = new JoystickButton(drivejoystick, 3),
       FieldRelativeButton = new JoystickButton(drivejoystick, 4),
-      MedrotateButton = new JoystickButton(drivejoystick, 5),
-      HighrotateButton = new JoystickButton(drivejoystick, 6),
+      HighrotateButton = new JoystickButton(drivejoystick, 5),
+      MedrotateButton = new JoystickButton(drivejoystick, 6),
       button7 = new JoystickButton(drivejoystick, 7),
       ExtendOveride = new JoystickButton(drivejoystick, 8),
       Medgoal = new JoystickButton(drivejoystick, 9),
@@ -242,8 +242,8 @@ public class RobotContainer {
         new ArmRotateCommand(
             armrotatecontrol,
             RotateoverideButton,
-            MedrotateButton,
-            HighrotateButton,
+            Medgoal,
+            Highgoal,
             () -> -drivejoystick.getRawAxis(2)));
 
     configureButtonBindings();
