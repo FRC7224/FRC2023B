@@ -181,6 +181,29 @@ public class ArmRotateSubsystem extends SubsystemBase {
   }
   ;
 
+  public void SetTargetRotStart() {
+    rotate1.set(ControlMode.Position, Constants.START_ROT_PRESET);
+    rotate2.set(ControlMode.Position, -Constants.START_ROT_PRESET);
+    GlobalStatus.Global_Rotate1_position = Constants.START_ROT_PRESET;
+    GlobalStatus.Global_Rotate2_position = -Constants.START_ROT_PRESET;
+  }
+  ;
+
+  public void SetTargetRotHIGH() {
+    rotate1.set(ControlMode.Position, Constants.HIGH_ROT_PRESET);
+    rotate2.set(ControlMode.Position, -Constants.HIGH_ROT_PRESET);
+    GlobalStatus.Global_Rotate1_position = Constants.HIGH_ROT_PRESET;
+    GlobalStatus.Global_Rotate2_position = -Constants.HIGH_ROT_PRESET;
+  }
+  ;
+
+  public void SetTargetRotZero() {
+    rotate1.set(ControlMode.Position, 0);
+    rotate2.set(ControlMode.Position, 0);
+    GlobalStatus.Global_Rotate1_position = 0;
+    GlobalStatus.Global_Rotate2_position = 0;
+  }
+
   /** Stops the motion of the robot. */
   public void stop() {
     rotate1.set(ControlMode.PercentOutput, 0);

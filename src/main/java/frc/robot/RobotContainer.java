@@ -292,22 +292,31 @@ public class RobotContainer {
 
     List<PathPlannerTrajectory> auto1Paths =
         PathPlanner.loadPathGroup(
-            "testPaths1",
+            "Left",
             new PathConstraints(
                 AUTO_MAX_SPEED_METERS_PER_SECOND, AUTO_MAX_ACCELERATION_METERS_PER_SECOND_SQUARED));
     Command autoTest =
         Commands.sequence(
+            Commands.runOnce(drivetrain::enableXstance, drivetrain),
+            Commands.runOnce(armrotatecontrol::SetTargetRotStart, armrotatecontrol),
+            Commands.runOnce(clawsubsystem::SetClawOn, clawsubsystem),
+            Commands.waitSeconds(0.5),
+            Commands.runOnce(armcontrol::SetTargetArmHigh, armcontrol),
+            Commands.runOnce(armrotatecontrol::SetTargetRotHIGH, armrotatecontrol),
+            Commands.waitSeconds(2.0),
+            Commands.runOnce(clawsubsystem::stop, clawsubsystem),
+            Commands.waitSeconds(0.5),
+            Commands.runOnce(armcontrol::SetTargetArmZero, armcontrol),
+            Commands.runOnce(armrotatecontrol::SetTargetRotZero, armrotatecontrol),
             new FollowPathWithEvents(
                 new FollowPath(auto1Paths.get(0), drivetrain, true),
                 auto1Paths.get(0).getMarkers(),
                 AUTO_EVENT_MAP),
             Commands.runOnce(drivetrain::enableXstance, drivetrain),
-            Commands.waitSeconds(5.0),
+            Commands.runOnce(drivetrain::setBrakeOn, drivetrain),
+            Commands.waitSeconds(3.0),
             Commands.runOnce(drivetrain::disableXstance, drivetrain),
-            new FollowPathWithEvents(
-                new FollowPath(auto1Paths.get(1), drivetrain, false),
-                auto1Paths.get(1).getMarkers(),
-                AUTO_EVENT_MAP));
+            Commands.runOnce(drivetrain::setBrakeOff, drivetrain));
 
     // add commands to the auto chooser
     autoChooser.addDefaultOption("Do Nothing", new InstantCommand());

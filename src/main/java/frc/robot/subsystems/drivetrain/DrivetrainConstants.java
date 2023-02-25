@@ -53,17 +53,17 @@ public final class DrivetrainConstants {
    *
    * <p>Should be measured from center to center.
    */
-  public static final double TRACKWIDTH_METERS = 0.44; // 22.5 inches
+  public static final double TRACKWIDTH_METERS = 0.47; // 22.5 inches
 
   /**
    * The front-to-back distance between the drivetrain wheels.
    *
    * <p>Should be measured from center to center.
    */
-  public static final double WHEELBASE_METERS = 0.55; // 23.5 inches
+  public static final double WHEELBASE_METERS = 0.737; // 23.5 inches
 
-  public static final double ROBOT_WIDTH_WITH_BUMPERS = 0.89; // meters
-  public static final double ROBOT_LENGTH_WITH_BUMPERS = 0.91; // meters
+  public static final double ROBOT_WIDTH_WITH_BUMPERS = 0.762; // meters
+  public static final double ROBOT_LENGTH_WITH_BUMPERS = 1.0; // meters
 
   /* The geometry and coordinate systems can be confusing. Refer to this document
   for a detailed explanation: https://docs.google.com/document/d/17dg5cIfqVOlQTTbo2ust4QxTZlUoPNzuBu2oe58Ov84/edit#heading=h.x4ppzp81ed1

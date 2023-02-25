@@ -408,6 +408,20 @@ public class Drivetrain extends SubsystemBase {
     }
   }
 
+  public void setBrakeOn() {
+    for (SwerveModule mod : swerveModules) {
+      mod.setAngleBrakeMode(true);
+      mod.setDriveBrakeMode(true);
+    }
+  }
+
+  public void setBrakeOff() {
+    for (SwerveModule mod : swerveModules) {
+      mod.setAngleBrakeMode(false);
+      mod.setDriveBrakeMode(false);
+    }
+  }
+
   /**
    * Sets each of the swerve modules based on the specified corresponding swerve module state.
    * Incorporates the configured feedforward when setting each swerve module. The order of the

@@ -55,7 +55,7 @@ public class TeleopSwerve extends CommandBase {
     // responsive to small changes in the controller
     double xPercentage = modifyAxis(translationXSupplier.getAsDouble());
     double yPercentage = modifyAxis(translationYSupplier.getAsDouble());
-    double rotationPercentage = modifyAxis(rotationSupplier.getAsDouble());
+    double rotationPercentage = modifyAxis(rotationSupplier.getAsDouble()) * 0.3;
 
     double xVelocity = xPercentage * DrivetrainConstants.MAX_VELOCITY_METERS_PER_SECOND;
     double yVelocity = yPercentage * DrivetrainConstants.MAX_VELOCITY_METERS_PER_SECOND;

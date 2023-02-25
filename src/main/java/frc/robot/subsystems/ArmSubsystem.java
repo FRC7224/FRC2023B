@@ -98,8 +98,17 @@ public class ArmSubsystem extends SubsystemBase {
   ;
 
   public void SetTargetPositionRotations(double targetPositionRotations) {
-
     arm.set(ControlMode.Position, targetPositionRotations);
+  }
+  ;
+
+  public void SetTargetArmZero() {
+    arm.set(ControlMode.Position, 0);
+  }
+  ;
+
+  public void SetTargetArmHigh() {
+    arm.set(ControlMode.Position, Constants.HIGH_ARM_PRESET);
   }
   ;
 

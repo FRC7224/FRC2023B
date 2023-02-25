@@ -135,6 +135,7 @@ public final class Constants {
   public static double ROT_MAX = 12.2 * 4096;
   public static double LOW48_ROT = 20000;
   public static double HIGH48_ROT = 30000;
+  public static double START_ROT_PRESET = 13000;
   public static double MED_ROT_PRESET = 25000;
   public static double HIGH_ROT_PRESET = 23500;
   public static double OV_ROT_ARM = 0.1;
