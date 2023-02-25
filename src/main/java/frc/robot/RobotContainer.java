@@ -15,7 +15,6 @@ import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -61,22 +60,23 @@ public class RobotContainer {
   JoystickButton ClawOn = new JoystickButton(drivejoystick, 1),
       XStanceButton = new JoystickButton(drivejoystick, 2),
       RotateoverideButton = new JoystickButton(drivejoystick, 3),
-      FieldRelativeButton = new JoystickButton(drivejoystick, 4),
-      HighrotateButton = new JoystickButton(drivejoystick, 5),
-      MedrotateButton = new JoystickButton(drivejoystick, 6),
+      button4 = new JoystickButton(drivejoystick, 4),
+      Highgoal = new JoystickButton(drivejoystick, 5),
+      Medgoal = new JoystickButton(drivejoystick, 6),
       button7 = new JoystickButton(drivejoystick, 7),
       ExtendOveride = new JoystickButton(drivejoystick, 8),
-      Medgoal = new JoystickButton(drivejoystick, 9),
-      Highgoal = new JoystickButton(drivejoystick, 10);
-  //  button11 = new JoystickButton(drivejoystick, 11);
-  //   button12 = new JoystickButton(drivejoystick, 12);
+      button9 = new JoystickButton(drivejoystick, 9),
+      button10 = new JoystickButton(drivejoystick, 10);
+  // button11 = new JoystickButton(drivejoystick, 11);
+  // button12 = new JoystickButton(drivejoystick, 12);
 
   private Drivetrain drivetrain;
   private ArmSubsystem armcontrol;
   private ArmRotateSubsystem armrotatecontrol;
   private ClawSubsystem clawsubsystem;
 
-  // use AdvantageKit's LoggedDashboardChooser instead of SendableChooser to ensure accurate logging
+  // use AdvantageKit's LoggedDashboardChooser instead of SendableChooser to
+  // ensure accurate logging
   private final LoggedDashboardChooser<Command> autoChooser =
       new LoggedDashboardChooser<>("Auto Routine");
 
@@ -85,7 +85,8 @@ public class RobotContainer {
 
   /** Create the container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    // create real, simulated, or replay subsystems based on the mode and robot specified
+    // create real, simulated, or replay subsystems based on the mode and robot
+    // specified
     if (Constants.getMode() != Mode.REPLAY) {
       switch (Constants.getRobot()) {
         case ROBOT_2023_SEASON:
@@ -198,7 +199,8 @@ public class RobotContainer {
       new Vision(new VisionIO() {});
     }
 
-    // disable all telemetry in the LiveWindow to reduce the processing during each iteration
+    // disable all telemetry in the LiveWindow to reduce the processing during each
+    // iteration
     LiveWindow.disableAllTelemetry();
 
     updateOI();
@@ -215,17 +217,25 @@ public class RobotContainer {
     CommandScheduler.getInstance().getActiveButtonLoop().clear();
 
     /*
-     * Set up the default command for the drivetrain. The joysticks' values map to percentage of the
-     * maximum velocities. The velocities may be specified from either the robot's frame of
-     * reference or the field's frame of reference. In the robot's frame of reference, the positive
-     * x direction is forward; the positive y direction, left; position rotation, CCW. In the field
-     * frame of reference, the origin of the field to the lower left corner (i.e., the corner of the
-     * field to the driver's right). Zero degrees is away from the driver and increases in the CCW
-     * direction. This is why the left joystick's y axis specifies the velocity in the x direction
+     * Set up the default command for the drivetrain. The joysticks' values map to
+     * percentage of the
+     * maximum velocities. The velocities may be specified from either the robot's
+     * frame of
+     * reference or the field's frame of reference. In the robot's frame of
+     * reference, the positive
+     * x direction is forward; the positive y direction, left; position rotation,
+     * CCW. In the field
+     * frame of reference, the origin of the field to the lower left corner (i.e.,
+     * the corner of the
+     * field to the driver's right). Zero degrees is away from the driver and
+     * increases in the CCW
+     * direction. This is why the left joystick's y axis specifies the velocity in
+     * the x direction
      * and the left joystick's x axis specifies the velocity in the y direction.
      */
-    //  drivetrain.setDefaultCommand(
-    //   new TeleopSwerve(drivetrain, -drivejoystick.getRawAxis(1),-drivejoystick.getRawAxis(0),
+    // drivetrain.setDefaultCommand(
+    // new TeleopSwerve(drivetrain,
+    // -drivejoystick.getRawAxis(1),-drivejoystick.getRawAxis(0),
     // -drivejoystick.getRawAxis(3));
     drivetrain.setDefaultCommand(
         new TeleopSwerve(
@@ -262,12 +272,13 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // field-relative toggle
 
-    SmartDashboard.putBoolean("Field Button input", FieldRelativeButton.getAsBoolean());
-    FieldRelativeButton.toggleOnTrue(
-        Commands.either(
-            Commands.runOnce(drivetrain::disableFieldRelative, drivetrain),
-            Commands.runOnce(drivetrain::enableFieldRelative, drivetrain),
-            drivetrain::getFieldRelative));
+    // SmartDashboard.putBoolean("Field Button input",
+    // FieldRelativeButton.getAsBoolean());
+    // FieldRelativeButton.toggleOnTrue(
+    // Commands.either(
+    // Commands.runOnce(drivetrain::disableFieldRelative, drivetrain),
+    // Commands.runOnce(drivetrain::enableFieldRelative, drivetrain),
+    // drivetrain::getFieldRelative));
 
     // reset close ope claw
     ClawOn.onTrue(Commands.runOnce(clawsubsystem::SetClawOn, clawsubsystem));
@@ -279,8 +290,9 @@ public class RobotContainer {
 
     // arm extend
     // Extendarm.onTrue(Commands.runOnce(drivetrain::enableXstance, drivetrain));
-    //  Extendarm.onTrue(Commands.runOnce(armcontrol::setExtendArm, armcontrol));
-    //   ResetGyroButton.onFalse(Commands.runOnce(armcontrol::setRetracrtArm, armcontrol));
+    // Extendarm.onTrue(Commands.runOnce(armcontrol::setExtendArm, armcontrol));
+    // ResetGyroButton.onFalse(Commands.runOnce(armcontrol::setRetracrtArm,
+    // armcontrol));
   }
 
   /** Use this method to define your commands for autonomous mode. */
@@ -290,12 +302,43 @@ public class RobotContainer {
 
     // build auto path commands
 
-    List<PathPlannerTrajectory> auto1Paths =
+    List<PathPlannerTrajectory> Left1 =
         PathPlanner.loadPathGroup(
-            "Left",
+            "Left1",
             new PathConstraints(
                 AUTO_MAX_SPEED_METERS_PER_SECOND, AUTO_MAX_ACCELERATION_METERS_PER_SECOND_SQUARED));
-    Command autoTest =
+
+    List<PathPlannerTrajectory> Left2 =
+        PathPlanner.loadPathGroup(
+            "Left2",
+            new PathConstraints(
+                AUTO_MAX_SPEED_METERS_PER_SECOND, AUTO_MAX_ACCELERATION_METERS_PER_SECOND_SQUARED));
+
+    List<PathPlannerTrajectory> Left3 =
+        PathPlanner.loadPathGroup(
+            "Left3",
+            new PathConstraints(
+                AUTO_MAX_SPEED_METERS_PER_SECOND, AUTO_MAX_ACCELERATION_METERS_PER_SECOND_SQUARED));
+
+    List<PathPlannerTrajectory> Right1 =
+        PathPlanner.loadPathGroup(
+            "Right1",
+            new PathConstraints(
+                AUTO_MAX_SPEED_METERS_PER_SECOND, AUTO_MAX_ACCELERATION_METERS_PER_SECOND_SQUARED));
+
+    List<PathPlannerTrajectory> Right2 =
+        PathPlanner.loadPathGroup(
+            "Right2",
+            new PathConstraints(
+                AUTO_MAX_SPEED_METERS_PER_SECOND, AUTO_MAX_ACCELERATION_METERS_PER_SECOND_SQUARED));
+
+    List<PathPlannerTrajectory> Right3 =
+        PathPlanner.loadPathGroup(
+            "Right3",
+            new PathConstraints(
+                AUTO_MAX_SPEED_METERS_PER_SECOND, AUTO_MAX_ACCELERATION_METERS_PER_SECOND_SQUARED));
+
+    Command autoLeft1 =
         Commands.sequence(
             Commands.runOnce(drivetrain::enableXstance, drivetrain),
             Commands.runOnce(armrotatecontrol::SetTargetRotStart, armrotatecontrol),
@@ -309,8 +352,123 @@ public class RobotContainer {
             Commands.runOnce(armcontrol::SetTargetArmZero, armcontrol),
             Commands.runOnce(armrotatecontrol::SetTargetRotZero, armrotatecontrol),
             new FollowPathWithEvents(
-                new FollowPath(auto1Paths.get(0), drivetrain, true),
-                auto1Paths.get(0).getMarkers(),
+                new FollowPath(Left1.get(0), drivetrain, true),
+                Left1.get(0).getMarkers(),
+                AUTO_EVENT_MAP),
+            Commands.runOnce(drivetrain::enableXstance, drivetrain),
+            Commands.runOnce(drivetrain::setBrakeOn, drivetrain),
+            Commands.waitSeconds(3.0),
+            Commands.runOnce(drivetrain::disableXstance, drivetrain),
+            Commands.runOnce(drivetrain::setBrakeOff, drivetrain));
+
+    Command autoLeft2 =
+        Commands.sequence(
+            Commands.runOnce(drivetrain::enableXstance, drivetrain),
+            Commands.runOnce(armrotatecontrol::SetTargetRotStart, armrotatecontrol),
+            Commands.runOnce(clawsubsystem::SetClawOn, clawsubsystem),
+            Commands.waitSeconds(0.5),
+            Commands.runOnce(armcontrol::SetTargetArmHigh, armcontrol),
+            Commands.runOnce(armrotatecontrol::SetTargetRotHIGH, armrotatecontrol),
+            Commands.waitSeconds(2.0),
+            Commands.runOnce(clawsubsystem::stop, clawsubsystem),
+            Commands.waitSeconds(0.5),
+            Commands.runOnce(armcontrol::SetTargetArmZero, armcontrol),
+            Commands.runOnce(armrotatecontrol::SetTargetRotZero, armrotatecontrol),
+            new FollowPathWithEvents(
+                new FollowPath(Left2.get(0), drivetrain, true),
+                Left2.get(0).getMarkers(),
+                AUTO_EVENT_MAP),
+            Commands.runOnce(drivetrain::enableXstance, drivetrain),
+            Commands.runOnce(drivetrain::setBrakeOn, drivetrain),
+            Commands.waitSeconds(3.0),
+            Commands.runOnce(drivetrain::disableXstance, drivetrain),
+            Commands.runOnce(drivetrain::setBrakeOff, drivetrain));
+
+    Command autoLeft3 =
+        Commands.sequence(
+            Commands.runOnce(drivetrain::enableXstance, drivetrain),
+            Commands.runOnce(armrotatecontrol::SetTargetRotStart, armrotatecontrol),
+            Commands.runOnce(clawsubsystem::SetClawOn, clawsubsystem),
+            Commands.waitSeconds(0.5),
+            Commands.runOnce(armcontrol::SetTargetArmHigh, armcontrol),
+            Commands.runOnce(armrotatecontrol::SetTargetRotHIGH, armrotatecontrol),
+            Commands.waitSeconds(2.0),
+            Commands.runOnce(clawsubsystem::stop, clawsubsystem),
+            Commands.waitSeconds(0.5),
+            Commands.runOnce(armcontrol::SetTargetArmZero, armcontrol),
+            Commands.runOnce(armrotatecontrol::SetTargetRotZero, armrotatecontrol),
+            new FollowPathWithEvents(
+                new FollowPath(Left3.get(0), drivetrain, true),
+                Left3.get(0).getMarkers(),
+                AUTO_EVENT_MAP),
+            Commands.runOnce(drivetrain::enableXstance, drivetrain),
+            Commands.runOnce(drivetrain::setBrakeOn, drivetrain),
+            Commands.waitSeconds(3.0),
+            Commands.runOnce(drivetrain::disableXstance, drivetrain),
+            Commands.runOnce(drivetrain::setBrakeOff, drivetrain));
+
+    Command autoRight1 =
+        Commands.sequence(
+            Commands.runOnce(drivetrain::enableXstance, drivetrain),
+            Commands.runOnce(armrotatecontrol::SetTargetRotStart, armrotatecontrol),
+            Commands.runOnce(clawsubsystem::SetClawOn, clawsubsystem),
+            Commands.waitSeconds(0.5),
+            Commands.runOnce(armcontrol::SetTargetArmHigh, armcontrol),
+            Commands.runOnce(armrotatecontrol::SetTargetRotHIGH, armrotatecontrol),
+            Commands.waitSeconds(2.0),
+            Commands.runOnce(clawsubsystem::stop, clawsubsystem),
+            Commands.waitSeconds(0.5),
+            Commands.runOnce(armcontrol::SetTargetArmZero, armcontrol),
+            Commands.runOnce(armrotatecontrol::SetTargetRotZero, armrotatecontrol),
+            new FollowPathWithEvents(
+                new FollowPath(Right1.get(0), drivetrain, true),
+                Right1.get(0).getMarkers(),
+                AUTO_EVENT_MAP),
+            Commands.runOnce(drivetrain::enableXstance, drivetrain),
+            Commands.runOnce(drivetrain::setBrakeOn, drivetrain),
+            Commands.waitSeconds(3.0),
+            Commands.runOnce(drivetrain::disableXstance, drivetrain),
+            Commands.runOnce(drivetrain::setBrakeOff, drivetrain));
+
+    Command autoRight2 =
+        Commands.sequence(
+            Commands.runOnce(drivetrain::enableXstance, drivetrain),
+            Commands.runOnce(armrotatecontrol::SetTargetRotStart, armrotatecontrol),
+            Commands.runOnce(clawsubsystem::SetClawOn, clawsubsystem),
+            Commands.waitSeconds(0.5),
+            Commands.runOnce(armcontrol::SetTargetArmHigh, armcontrol),
+            Commands.runOnce(armrotatecontrol::SetTargetRotHIGH, armrotatecontrol),
+            Commands.waitSeconds(2.0),
+            Commands.runOnce(clawsubsystem::stop, clawsubsystem),
+            Commands.waitSeconds(0.5),
+            Commands.runOnce(armcontrol::SetTargetArmZero, armcontrol),
+            Commands.runOnce(armrotatecontrol::SetTargetRotZero, armrotatecontrol),
+            new FollowPathWithEvents(
+                new FollowPath(Right2.get(0), drivetrain, true),
+                Right2.get(0).getMarkers(),
+                AUTO_EVENT_MAP),
+            Commands.runOnce(drivetrain::enableXstance, drivetrain),
+            Commands.runOnce(drivetrain::setBrakeOn, drivetrain),
+            Commands.waitSeconds(3.0),
+            Commands.runOnce(drivetrain::disableXstance, drivetrain),
+            Commands.runOnce(drivetrain::setBrakeOff, drivetrain));
+
+    Command autoRight3 =
+        Commands.sequence(
+            Commands.runOnce(drivetrain::enableXstance, drivetrain),
+            Commands.runOnce(armrotatecontrol::SetTargetRotStart, armrotatecontrol),
+            Commands.runOnce(clawsubsystem::SetClawOn, clawsubsystem),
+            Commands.waitSeconds(0.5),
+            Commands.runOnce(armcontrol::SetTargetArmHigh, armcontrol),
+            Commands.runOnce(armrotatecontrol::SetTargetRotHIGH, armrotatecontrol),
+            Commands.waitSeconds(2.0),
+            Commands.runOnce(clawsubsystem::stop, clawsubsystem),
+            Commands.waitSeconds(0.5),
+            Commands.runOnce(armcontrol::SetTargetArmZero, armcontrol),
+            Commands.runOnce(armrotatecontrol::SetTargetRotZero, armrotatecontrol),
+            new FollowPathWithEvents(
+                new FollowPath(Right3.get(0), drivetrain, true),
+                Right3.get(0).getMarkers(),
                 AUTO_EVENT_MAP),
             Commands.runOnce(drivetrain::enableXstance, drivetrain),
             Commands.runOnce(drivetrain::setBrakeOn, drivetrain),
@@ -321,8 +479,23 @@ public class RobotContainer {
     // add commands to the auto chooser
     autoChooser.addDefaultOption("Do Nothing", new InstantCommand());
 
-    // demonstration of PathPlanner path group with event markers
-    autoChooser.addOption("Test Path", autoTest);
+    // Auto Mode Left1
+    autoChooser.addOption("Auto Left 1", autoLeft1);
+
+    // Auto Mode Left2
+    autoChooser.addOption("Auto Left 2", autoLeft2);
+
+    // Auto Mode Left3
+    autoChooser.addOption("Auto Left 3", autoLeft3);
+
+    // Auto Mode Right1
+    autoChooser.addOption("Auto Right 1", autoRight1);
+
+    // Auto Mode Right2
+    autoChooser.addOption("Auto Right 2", autoRight2);
+
+    // Auto Mode Right3
+    autoChooser.addOption("Auto Right 3", autoRight3);
 
     // "auto" command for tuning the drive velocity PID
     autoChooser.addOption(

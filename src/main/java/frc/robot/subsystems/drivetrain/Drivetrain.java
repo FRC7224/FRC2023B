@@ -22,7 +22,6 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.team3061.gyro.GyroIO;
@@ -90,8 +89,8 @@ public class Drivetrain extends SubsystemBase {
   private ChassisSpeeds chassisSpeeds;
 
   private static final String SUBSYSTEM_NAME = "Drivetrain";
-  private static final boolean TESTING = true;
-  private static final boolean DEBUGGING = true;
+  private static final boolean TESTING = false;
+  private static final boolean DEBUGGING = false;
 
   private final SwerveDrivePoseEstimator poseEstimator;
   private boolean brakeMode;
@@ -455,7 +454,6 @@ public class Drivetrain extends SubsystemBase {
    */
   public void enableFieldRelative() {
     this.isFieldRelative = true;
-    SmartDashboard.putBoolean("FIELD Relative", isFieldRelative);
   }
 
   /**
@@ -463,7 +461,6 @@ public class Drivetrain extends SubsystemBase {
    * robot in the frame of reference of the robot.
    */
   public void disableFieldRelative() {
-    SmartDashboard.putBoolean("FIELD Relative", isFieldRelative);
     this.isFieldRelative = false;
   }
 

@@ -1,7 +1,6 @@
 package frc.robot.commands;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants;
@@ -63,7 +62,6 @@ public class ArmExtendCommand extends CommandBase {
     /* Gamepad processing */
 
     double extendcontrol = modifyAxis(translationXSupplier.getAsDouble());
-    SmartDashboard.putNumber("extendcontrol", extendcontrol);
 
     double motorOutput;
 

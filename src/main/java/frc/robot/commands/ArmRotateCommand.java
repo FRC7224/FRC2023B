@@ -96,11 +96,10 @@ public class ArmRotateCommand extends CommandBase {
       armrotatesubsystem.SetTargetPositionRotationsR2(-targetPositionRotations);
     } else if (highrotateButton.getAsBoolean()) {
       if (targetPositionRotations >= 0) { // check to see if arm is rotated backwards
-        targetPositionRotations = Constants.MED_ROT_PRESET;
+        targetPositionRotations = Constants.HIGH_ROT_PRESET;
       } else {
-        targetPositionRotations = -Constants.MED_ROT_PRESET;
+        targetPositionRotations = -Constants.HIGH_ROT_PRESET;
       }
-      targetPositionRotations = Constants.HIGH_ROT_PRESET;
       armrotatesubsystem.SetTargetPositionRotationsR1(targetPositionRotations);
       armrotatesubsystem.SetTargetPositionRotationsR2(-targetPositionRotations);
     } else {

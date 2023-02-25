@@ -87,7 +87,7 @@ public final class Constants {
 
   ////// Claw  Constants ///////////////////////////
 
-  public static double CLAW_SPEED = -0.07;
+  public static double CLAW_SPEED = -0.09;
 
   ////// ARM Extend Constants ///////////////////////////
 
