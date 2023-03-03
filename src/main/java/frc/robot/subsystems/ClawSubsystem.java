@@ -23,8 +23,6 @@ public class ClawSubsystem extends SubsystemBase {
 
   /** Stops the motion of the robot. */
   public void stop() {
-    claw1.set(1.0);
-    claw2.set(1.0);
     claw1.set(0);
     claw2.set(0);
   }

@@ -286,8 +286,10 @@ public class RobotContainer {
 
     // x-stance
     XStanceButton.onTrue(Commands.runOnce(drivetrain::enableXstance, drivetrain));
-    XStanceButton.onFalse(Commands.runOnce(drivetrain::disableXstance, drivetrain));
+    XStanceButton.onTrue(Commands.runOnce(drivetrain::setBrakeOn, drivetrain));
 
+    XStanceButton.onTrue(Commands.runOnce(drivetrain::disableXstance, drivetrain));
+    XStanceButton.onTrue(Commands.runOnce(drivetrain::setBrakeOff, drivetrain));
     // arm extend
     // Extendarm.onTrue(Commands.runOnce(drivetrain::enableXstance, drivetrain));
     // Extendarm.onTrue(Commands.runOnce(armcontrol::setExtendArm, armcontrol));
@@ -320,6 +322,12 @@ public class RobotContainer {
             new PathConstraints(
                 AUTO_MAX_SPEED_METERS_PER_SECOND, AUTO_MAX_ACCELERATION_METERS_PER_SECOND_SQUARED));
 
+    List<PathPlannerTrajectory> Left3long =
+        PathPlanner.loadPathGroup(
+            "Left3long",
+            new PathConstraints(
+                AUTO_MAX_SPEED_METERS_PER_SECOND, AUTO_MAX_ACCELERATION_METERS_PER_SECOND_SQUARED));
+
     List<PathPlannerTrajectory> Right1 =
         PathPlanner.loadPathGroup(
             "Right1",
@@ -335,6 +343,12 @@ public class RobotContainer {
     List<PathPlannerTrajectory> Right3 =
         PathPlanner.loadPathGroup(
             "Right3",
+            new PathConstraints(
+                AUTO_MAX_SPEED_METERS_PER_SECOND, AUTO_MAX_ACCELERATION_METERS_PER_SECOND_SQUARED));
+
+    List<PathPlannerTrajectory> Right3long =
+        PathPlanner.loadPathGroup(
+            "Right3long",
             new PathConstraints(
                 AUTO_MAX_SPEED_METERS_PER_SECOND, AUTO_MAX_ACCELERATION_METERS_PER_SECOND_SQUARED));
 
@@ -357,7 +371,7 @@ public class RobotContainer {
                 AUTO_EVENT_MAP),
             Commands.runOnce(drivetrain::enableXstance, drivetrain),
             Commands.runOnce(drivetrain::setBrakeOn, drivetrain),
-            Commands.waitSeconds(3.0),
+            Commands.waitSeconds(8.0),
             Commands.runOnce(drivetrain::disableXstance, drivetrain),
             Commands.runOnce(drivetrain::setBrakeOff, drivetrain));
 
@@ -380,7 +394,7 @@ public class RobotContainer {
                 AUTO_EVENT_MAP),
             Commands.runOnce(drivetrain::enableXstance, drivetrain),
             Commands.runOnce(drivetrain::setBrakeOn, drivetrain),
-            Commands.waitSeconds(3.0),
+            Commands.waitSeconds(8.0),
             Commands.runOnce(drivetrain::disableXstance, drivetrain),
             Commands.runOnce(drivetrain::setBrakeOff, drivetrain));
 
@@ -403,7 +417,30 @@ public class RobotContainer {
                 AUTO_EVENT_MAP),
             Commands.runOnce(drivetrain::enableXstance, drivetrain),
             Commands.runOnce(drivetrain::setBrakeOn, drivetrain),
-            Commands.waitSeconds(3.0),
+            Commands.waitSeconds(8.0),
+            Commands.runOnce(drivetrain::disableXstance, drivetrain),
+            Commands.runOnce(drivetrain::setBrakeOff, drivetrain));
+
+    Command autoLeft3long =
+        Commands.sequence(
+            Commands.runOnce(drivetrain::enableXstance, drivetrain),
+            Commands.runOnce(armrotatecontrol::SetTargetRotStart, armrotatecontrol),
+            Commands.runOnce(clawsubsystem::SetClawOn, clawsubsystem),
+            Commands.waitSeconds(0.5),
+            Commands.runOnce(armcontrol::SetTargetArmHigh, armcontrol),
+            Commands.runOnce(armrotatecontrol::SetTargetRotHIGH, armrotatecontrol),
+            Commands.waitSeconds(2.0),
+            Commands.runOnce(clawsubsystem::stop, clawsubsystem),
+            Commands.waitSeconds(0.5),
+            Commands.runOnce(armcontrol::SetTargetArmZero, armcontrol),
+            Commands.runOnce(armrotatecontrol::SetTargetRotZero, armrotatecontrol),
+            new FollowPathWithEvents(
+                new FollowPath(Left3long.get(0), drivetrain, true),
+                Left3long.get(0).getMarkers(),
+                AUTO_EVENT_MAP),
+            Commands.runOnce(drivetrain::enableXstance, drivetrain),
+            Commands.runOnce(drivetrain::setBrakeOn, drivetrain),
+            Commands.waitSeconds(8.0),
             Commands.runOnce(drivetrain::disableXstance, drivetrain),
             Commands.runOnce(drivetrain::setBrakeOff, drivetrain));
 
@@ -426,7 +463,7 @@ public class RobotContainer {
                 AUTO_EVENT_MAP),
             Commands.runOnce(drivetrain::enableXstance, drivetrain),
             Commands.runOnce(drivetrain::setBrakeOn, drivetrain),
-            Commands.waitSeconds(3.0),
+            Commands.waitSeconds(8.0),
             Commands.runOnce(drivetrain::disableXstance, drivetrain),
             Commands.runOnce(drivetrain::setBrakeOff, drivetrain));
 
@@ -449,7 +486,7 @@ public class RobotContainer {
                 AUTO_EVENT_MAP),
             Commands.runOnce(drivetrain::enableXstance, drivetrain),
             Commands.runOnce(drivetrain::setBrakeOn, drivetrain),
-            Commands.waitSeconds(3.0),
+            Commands.waitSeconds(8.0),
             Commands.runOnce(drivetrain::disableXstance, drivetrain),
             Commands.runOnce(drivetrain::setBrakeOff, drivetrain));
 
@@ -472,7 +509,30 @@ public class RobotContainer {
                 AUTO_EVENT_MAP),
             Commands.runOnce(drivetrain::enableXstance, drivetrain),
             Commands.runOnce(drivetrain::setBrakeOn, drivetrain),
-            Commands.waitSeconds(3.0),
+            Commands.waitSeconds(8.0),
+            Commands.runOnce(drivetrain::disableXstance, drivetrain),
+            Commands.runOnce(drivetrain::setBrakeOff, drivetrain));
+
+    Command autoRight3long =
+        Commands.sequence(
+            Commands.runOnce(drivetrain::enableXstance, drivetrain),
+            Commands.runOnce(armrotatecontrol::SetTargetRotStart, armrotatecontrol),
+            Commands.runOnce(clawsubsystem::SetClawOn, clawsubsystem),
+            Commands.waitSeconds(0.5),
+            Commands.runOnce(armcontrol::SetTargetArmHigh, armcontrol),
+            Commands.runOnce(armrotatecontrol::SetTargetRotHIGH, armrotatecontrol),
+            Commands.waitSeconds(2.0),
+            Commands.runOnce(clawsubsystem::stop, clawsubsystem),
+            Commands.waitSeconds(0.5),
+            Commands.runOnce(armcontrol::SetTargetArmZero, armcontrol),
+            Commands.runOnce(armrotatecontrol::SetTargetRotZero, armrotatecontrol),
+            new FollowPathWithEvents(
+                new FollowPath(Right3long.get(0), drivetrain, true),
+                Right3long.get(0).getMarkers(),
+                AUTO_EVENT_MAP),
+            Commands.runOnce(drivetrain::enableXstance, drivetrain),
+            Commands.runOnce(drivetrain::setBrakeOn, drivetrain),
+            Commands.waitSeconds(8.0),
             Commands.runOnce(drivetrain::disableXstance, drivetrain),
             Commands.runOnce(drivetrain::setBrakeOff, drivetrain));
 
@@ -488,6 +548,9 @@ public class RobotContainer {
     // Auto Mode Left3
     autoChooser.addOption("Auto Left 3", autoLeft3);
 
+    // Auto Mode Left3 Long
+    autoChooser.addOption("Auto Left 3 Long ", autoLeft3long);
+
     // Auto Mode Right1
     autoChooser.addOption("Auto Right 1", autoRight1);
 
@@ -496,6 +559,9 @@ public class RobotContainer {
 
     // Auto Mode Right3
     autoChooser.addOption("Auto Right 3", autoRight3);
+
+    // Auto Mode Right3 Long
+    autoChooser.addOption("Auto Right 3 Long", autoRight3long);
 
     // "auto" command for tuning the drive velocity PID
     autoChooser.addOption(

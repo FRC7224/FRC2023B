@@ -87,7 +87,7 @@ public final class Constants {
 
   ////// Claw  Constants ///////////////////////////
 
-  public static double CLAW_SPEED = -0.09;
+  public static double CLAW_SPEED = -0.1;
 
   ////// ARM Extend Constants ///////////////////////////
 
@@ -132,7 +132,7 @@ public final class Constants {
 
   ////// ARM Rotate 1 Constants ///////////////////////////
 
-  public static double ROT_MAX = 12.2 * 4096;
+  public static double ROT_MAX = 11.95 * 4096;
   public static double LOW48_ROT = 20000;
   public static double HIGH48_ROT = 30000;
   public static double START_ROT_PRESET = 13000;
