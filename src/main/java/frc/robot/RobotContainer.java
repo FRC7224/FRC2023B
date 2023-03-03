@@ -281,8 +281,8 @@ public class RobotContainer {
     // drivetrain::getFieldRelative));
 
     // reset close ope claw
-    ClawOn.onTrue(Commands.runOnce(clawsubsystem::SetClawOn, clawsubsystem));
-    ClawOn.onFalse(Commands.runOnce(clawsubsystem::stop, clawsubsystem));
+    ClawOn.onFalse(Commands.runOnce(clawsubsystem::SetClawOn, clawsubsystem));
+    ClawOn.onTrue(Commands.runOnce(clawsubsystem::stop, clawsubsystem));
 
     // x-stance
     XStanceButton.onTrue(Commands.runOnce(drivetrain::enableXstance, drivetrain));
