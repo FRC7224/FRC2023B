@@ -91,10 +91,11 @@ public final class Constants {
 
   ////// ARM Extend Constants ///////////////////////////
 
-  public static double MAX_ARM = 8.05 * 4096;
-  public static double MAX48_ARM = 7.0 * 4096;
-  public static double MED_ARM_PRESET = 17000;
-  public static double HIGH_ARM_PRESET = 8.1 * 4096; //
+  public static double MAX_ARM = 167 * 4096;
+  public static double MAX48_ARM = 150 * 4096;
+  public static double MED_ARM_PRESET = 68 * 4096;
+  public static double HIGH_ARM_PRESET = 167 * 4096; //
+  public static double DRV_ARM_PRESET = 10 * 4096; //
   public static double ARM_OFFSET = 0; //
   public static double OV_ARM = 0.1;
 
@@ -120,24 +121,25 @@ public final class Constants {
   public static boolean kSensorPhase = false;
 
   /** Choose based on what direction you want to be positive, this does not affect motor invert. */
-  public static boolean kMotorInvert = true;
+  public static boolean kMotorInvert = false;
 
   /**
    * Gains used in Positon Closed Loop, to be adjusted accordingly Gains(kp, ki, kd, kf, izone, peak
    * output);
    */
-  public static final Gains kGains = new Gains(0.03, 0.0, 0.05, 0.00, 0, 1.0);
+  public static final Gains kGains = new Gains(1200.0, 0.0, 0.3, 0.00, 0, 0.8);
 
   public static final double DEADBAND = 0.05;
 
   ////// ARM Rotate 1 Constants ///////////////////////////
 
-  public static double ROT_MAX = 11.95 * 4096;
+  public static double ROT_MAX = 12.05 * 4096;
   public static double LOW48_ROT = 20000;
   public static double HIGH48_ROT = 30000;
   public static double START_ROT_PRESET = 13000;
-  public static double MED_ROT_PRESET = 25000;
-  public static double HIGH_ROT_PRESET = 23500;
+  public static double MED_ROT_PRESET = 26000;
+  public static double HIGH_ROT_PRESET = 17500;
+  public static double DRV_ROT_PRESET = 22500;
   public static double OV_ROT_ARM = 0.1;
 
   /**

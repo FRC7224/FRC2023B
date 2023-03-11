@@ -53,8 +53,8 @@ public class TeleopSwerve extends CommandBase {
 
     // invert the controller input and apply the deadband and squaring to make the robot more
     // responsive to small changes in the controller
-    double xPercentage = modifyAxis(translationXSupplier.getAsDouble()) * 0.8;
-    double yPercentage = modifyAxis(translationYSupplier.getAsDouble()) * 0.8;
+    double xPercentage = modifyAxis(translationXSupplier.getAsDouble()) * 0.7;
+    double yPercentage = modifyAxis(translationYSupplier.getAsDouble()) * 0.7;
     double rotationPercentage = modifyAxis(rotationSupplier.getAsDouble()) * 0.3;
 
     double xVelocity = xPercentage * DrivetrainConstants.MAX_VELOCITY_METERS_PER_SECOND;

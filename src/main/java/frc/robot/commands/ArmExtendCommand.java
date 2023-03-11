@@ -27,6 +27,7 @@ public class ArmExtendCommand extends CommandBase {
   private final JoystickButton extendoverideButton;
   private final JoystickButton medgoalButton;
   private final JoystickButton highgoalButton;
+  private final JoystickButton drvgoalButton;
 
   double extendamount = 0;
   double targetPositionRotations = 0;
@@ -48,11 +49,13 @@ public class ArmExtendCommand extends CommandBase {
       JoystickButton extendoverideButton,
       JoystickButton medgoalButton,
       JoystickButton highgoalButton,
+      JoystickButton drvgoalButton,
       DoubleSupplier translationXSupplier) {
     this.armsubsystem = armsubsystem;
     this.extendoverideButton = extendoverideButton;
     this.medgoalButton = medgoalButton;
     this.highgoalButton = highgoalButton;
+    this.drvgoalButton = drvgoalButton;
     this.translationXSupplier = translationXSupplier;
 
     addRequirements(armsubsystem);
@@ -86,6 +89,9 @@ public class ArmExtendCommand extends CommandBase {
       /* When button is held, just straight drive */
       /* Percent Output */
       armsubsystem.SetPercentOutput(extendcontrol * Constants.OV_ARM);
+    } else if (drvgoalButton.getAsBoolean()) {
+      targetPositionRotations = Constants.DRV_ARM_PRESET;
+      armsubsystem.SetTargetPositionRotations(targetPositionRotations);
     } else if (medgoalButton.getAsBoolean()) {
       targetPositionRotations = Constants.MED_ARM_PRESET;
       armsubsystem.SetTargetPositionRotations(targetPositionRotations);

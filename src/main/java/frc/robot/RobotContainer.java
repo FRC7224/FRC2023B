@@ -63,7 +63,7 @@ public class RobotContainer {
       button4 = new JoystickButton(drivejoystick, 4),
       Highgoal = new JoystickButton(drivejoystick, 5),
       Medgoal = new JoystickButton(drivejoystick, 6),
-      button7 = new JoystickButton(drivejoystick, 7),
+      Drvgoal = new JoystickButton(drivejoystick, 7),
       ExtendOveride = new JoystickButton(drivejoystick, 8),
       button9 = new JoystickButton(drivejoystick, 9),
       button10 = new JoystickButton(drivejoystick, 10);
@@ -246,7 +246,12 @@ public class RobotContainer {
 
     armcontrol.setDefaultCommand(
         new ArmExtendCommand( // use same button for preset rotate and extend
-            armcontrol, ExtendOveride, Medgoal, Highgoal, () -> drivejoystick.getRawAxis(4)));
+            armcontrol,
+            ExtendOveride,
+            Medgoal,
+            Highgoal,
+            Drvgoal,
+            () -> drivejoystick.getRawAxis(4)));
 
     armrotatecontrol.setDefaultCommand(
         new ArmRotateCommand(
@@ -254,6 +259,7 @@ public class RobotContainer {
             RotateoverideButton,
             Medgoal,
             Highgoal,
+            Drvgoal,
             () -> -drivejoystick.getRawAxis(2)));
 
     configureButtonBindings();

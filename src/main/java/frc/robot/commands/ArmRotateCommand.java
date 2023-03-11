@@ -27,6 +27,7 @@ public class ArmRotateCommand extends CommandBase {
   private final JoystickButton rotateoverideButton;
   private final JoystickButton medrotateButton;
   private final JoystickButton highrotateButton;
+  private final JoystickButton drvrotateButton;
 
   double targetPositionRotations = 0;
   /** Used to create string thoughout loop */
@@ -47,11 +48,13 @@ public class ArmRotateCommand extends CommandBase {
       JoystickButton rotateoverideButton,
       JoystickButton medrotateButton,
       JoystickButton highrotateButton,
+      JoystickButton drvrotateButton,
       DoubleSupplier translationRSupplier) {
     this.armrotatesubsystem = armrotatesubsystem;
     this.rotateoverideButton = rotateoverideButton;
     this.medrotateButton = medrotateButton;
     this.highrotateButton = highrotateButton;
+    this.drvrotateButton = drvrotateButton;
     this.translationRSupplier = translationRSupplier;
 
     addRequirements(armrotatesubsystem);
@@ -86,6 +89,14 @@ public class ArmRotateCommand extends CommandBase {
       /* Percent Output */
       armrotatesubsystem.SetPercentOutputR1(rotatecontrol * Constants.OV_ROT_ARM);
       armrotatesubsystem.SetPercentOutputR2(rotatecontrol * -Constants.OV_ROT_ARM);
+    } else if (drvrotateButton.getAsBoolean()) {
+      if (targetPositionRotations >= 0) { // check to see if arm is rotated backwards
+        targetPositionRotations = Constants.DRV_ROT_PRESET;
+      } else {
+        targetPositionRotations = -Constants.DRV_ROT_PRESET;
+      }
+      armrotatesubsystem.SetTargetPositionRotationsR1(targetPositionRotations);
+      armrotatesubsystem.SetTargetPositionRotationsR2(-targetPositionRotations);
     } else if (medrotateButton.getAsBoolean()) {
       if (targetPositionRotations >= 0) { // check to see if arm is rotated backwards
         targetPositionRotations = Constants.MED_ROT_PRESET;
