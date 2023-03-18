@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.team3061.gyro.GyroIO;
@@ -159,6 +160,10 @@ public class Drivetrain extends SubsystemBase {
    */
   public void zeroGyroscope() {
     setGyroOffset(0.0);
+  }
+
+  public void autoGyroscope() {
+    setGyroOffset(180);
   }
 
   /**
@@ -556,6 +561,12 @@ public class Drivetrain extends SubsystemBase {
    */
   public PIDController getAutoYController() {
     return autoYController;
+  }
+
+  /** Autobalance. */
+  public void autoBalance() {
+    SmartDashboard.putNumber("pitch", gyroInputs.pitch);
+    ;
   }
 
   /**

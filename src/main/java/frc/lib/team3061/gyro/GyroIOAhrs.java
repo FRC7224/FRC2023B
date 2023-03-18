@@ -23,5 +23,7 @@ public class GyroIOAhrs implements GyroIO {
     inputs.velocityDegPerSec =
         gyro.getRate(); // Return the rate of rotation of the yaw (Z-axis) gyro, in degrees per
     // second.
+    inputs.pitch = gyro.getPitch();
+    inputs.roll = gyro.getRoll();
   }
 }

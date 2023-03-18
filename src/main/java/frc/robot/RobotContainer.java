@@ -15,6 +15,7 @@ import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -59,14 +60,14 @@ public class RobotContainer {
   final Joystick drivejoystick = new Joystick(0);
   JoystickButton ClawOn = new JoystickButton(drivejoystick, 1),
       XStanceButton = new JoystickButton(drivejoystick, 2),
-      RotateoverideButton = new JoystickButton(drivejoystick, 3),
-      button4 = new JoystickButton(drivejoystick, 4),
+      ResetGyroButton = new JoystickButton(drivejoystick, 3),
+      FieldRelativeButton = new JoystickButton(drivejoystick, 4),
       Highgoal = new JoystickButton(drivejoystick, 5),
       Medgoal = new JoystickButton(drivejoystick, 6),
       Drvgoal = new JoystickButton(drivejoystick, 7),
       ExtendOveride = new JoystickButton(drivejoystick, 8),
       button9 = new JoystickButton(drivejoystick, 9),
-      button10 = new JoystickButton(drivejoystick, 10);
+      RotateoverideButton = new JoystickButton(drivejoystick, 10);
   // button11 = new JoystickButton(drivejoystick, 11);
   // button12 = new JoystickButton(drivejoystick, 12);
 
@@ -278,13 +279,12 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // field-relative toggle
 
-    // SmartDashboard.putBoolean("Field Button input",
-    // FieldRelativeButton.getAsBoolean());
-    // FieldRelativeButton.toggleOnTrue(
-    // Commands.either(
-    // Commands.runOnce(drivetrain::disableFieldRelative, drivetrain),
-    // Commands.runOnce(drivetrain::enableFieldRelative, drivetrain),
-    // drivetrain::getFieldRelative));
+    SmartDashboard.putBoolean("Field Button input", FieldRelativeButton.getAsBoolean());
+    FieldRelativeButton.toggleOnTrue(
+        Commands.either(
+            Commands.runOnce(drivetrain::disableFieldRelative, drivetrain),
+            Commands.runOnce(drivetrain::enableFieldRelative, drivetrain),
+            drivetrain::getFieldRelative));
 
     // reset close ope claw
     ClawOn.onFalse(Commands.runOnce(clawsubsystem::SetClawOn, clawsubsystem));
@@ -299,8 +299,7 @@ public class RobotContainer {
     // arm extend
     // Extendarm.onTrue(Commands.runOnce(drivetrain::enableXstance, drivetrain));
     // Extendarm.onTrue(Commands.runOnce(armcontrol::setExtendArm, armcontrol));
-    // ResetGyroButton.onFalse(Commands.runOnce(armcontrol::setRetracrtArm,
-    // armcontrol));
+    ResetGyroButton.onTrue(Commands.runOnce(drivetrain::autoGyroscope, drivetrain));
   }
 
   /** Use this method to define your commands for autonomous mode. */
@@ -375,11 +374,14 @@ public class RobotContainer {
                 new FollowPath(Left1.get(0), drivetrain, true),
                 Left1.get(0).getMarkers(),
                 AUTO_EVENT_MAP),
+            Commands.runOnce(clawsubsystem::SetClawOn, clawsubsystem),
+            Commands.runOnce(drivetrain::autoGyroscope, drivetrain),
             Commands.runOnce(drivetrain::enableXstance, drivetrain),
             Commands.runOnce(drivetrain::setBrakeOn, drivetrain),
             Commands.waitSeconds(8.0),
             Commands.runOnce(drivetrain::disableXstance, drivetrain),
-            Commands.runOnce(drivetrain::setBrakeOff, drivetrain));
+            Commands.runOnce(drivetrain::setBrakeOff, drivetrain),
+            Commands.runOnce(drivetrain::autoGyroscope, drivetrain));
 
     Command autoLeft2 =
         Commands.sequence(
@@ -398,6 +400,8 @@ public class RobotContainer {
                 new FollowPath(Left2.get(0), drivetrain, true),
                 Left2.get(0).getMarkers(),
                 AUTO_EVENT_MAP),
+            Commands.runOnce(clawsubsystem::SetClawOn, clawsubsystem),
+            Commands.runOnce(drivetrain::autoGyroscope, drivetrain),
             Commands.runOnce(drivetrain::enableXstance, drivetrain),
             Commands.runOnce(drivetrain::setBrakeOn, drivetrain),
             Commands.waitSeconds(8.0),
@@ -421,6 +425,8 @@ public class RobotContainer {
                 new FollowPath(Left3.get(0), drivetrain, true),
                 Left3.get(0).getMarkers(),
                 AUTO_EVENT_MAP),
+            Commands.runOnce(clawsubsystem::SetClawOn, clawsubsystem),
+            Commands.runOnce(drivetrain::autoGyroscope, drivetrain),
             Commands.runOnce(drivetrain::enableXstance, drivetrain),
             Commands.runOnce(drivetrain::setBrakeOn, drivetrain),
             Commands.waitSeconds(8.0),
@@ -444,6 +450,8 @@ public class RobotContainer {
                 new FollowPath(Left3long.get(0), drivetrain, true),
                 Left3long.get(0).getMarkers(),
                 AUTO_EVENT_MAP),
+            Commands.runOnce(clawsubsystem::SetClawOn, clawsubsystem),
+            Commands.runOnce(drivetrain::autoGyroscope, drivetrain),
             Commands.runOnce(drivetrain::enableXstance, drivetrain),
             Commands.runOnce(drivetrain::setBrakeOn, drivetrain),
             Commands.waitSeconds(8.0),
@@ -467,6 +475,8 @@ public class RobotContainer {
                 new FollowPath(Right1.get(0), drivetrain, true),
                 Right1.get(0).getMarkers(),
                 AUTO_EVENT_MAP),
+            Commands.runOnce(clawsubsystem::SetClawOn, clawsubsystem),
+            Commands.runOnce(drivetrain::autoGyroscope, drivetrain),
             Commands.runOnce(drivetrain::enableXstance, drivetrain),
             Commands.runOnce(drivetrain::setBrakeOn, drivetrain),
             Commands.waitSeconds(8.0),
@@ -490,6 +500,8 @@ public class RobotContainer {
                 new FollowPath(Right2.get(0), drivetrain, true),
                 Right2.get(0).getMarkers(),
                 AUTO_EVENT_MAP),
+            Commands.runOnce(clawsubsystem::SetClawOn, clawsubsystem),
+            Commands.runOnce(drivetrain::autoGyroscope, drivetrain),
             Commands.runOnce(drivetrain::enableXstance, drivetrain),
             Commands.runOnce(drivetrain::setBrakeOn, drivetrain),
             Commands.waitSeconds(8.0),
@@ -513,6 +525,8 @@ public class RobotContainer {
                 new FollowPath(Right3.get(0), drivetrain, true),
                 Right3.get(0).getMarkers(),
                 AUTO_EVENT_MAP),
+            Commands.runOnce(clawsubsystem::SetClawOn, clawsubsystem),
+            Commands.runOnce(drivetrain::autoGyroscope, drivetrain),
             Commands.runOnce(drivetrain::enableXstance, drivetrain),
             Commands.runOnce(drivetrain::setBrakeOn, drivetrain),
             Commands.waitSeconds(8.0),
@@ -536,6 +550,8 @@ public class RobotContainer {
                 new FollowPath(Right3long.get(0), drivetrain, true),
                 Right3long.get(0).getMarkers(),
                 AUTO_EVENT_MAP),
+            Commands.runOnce(clawsubsystem::SetClawOn, clawsubsystem),
+            Commands.runOnce(drivetrain::autoGyroscope, drivetrain),
             Commands.runOnce(drivetrain::enableXstance, drivetrain),
             Commands.runOnce(drivetrain::setBrakeOn, drivetrain),
             Commands.waitSeconds(8.0),

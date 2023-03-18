@@ -91,11 +91,11 @@ public final class Constants {
 
   ////// ARM Extend Constants ///////////////////////////
 
-  public static double MAX_ARM = 167 * 4096;
-  public static double MAX48_ARM = 150 * 4096;
-  public static double MED_ARM_PRESET = 68 * 4096;
-  public static double HIGH_ARM_PRESET = 167 * 4096; //
-  public static double DRV_ARM_PRESET = 10 * 4096; //
+  public static double MAX_ARM = 41.75 * 4096;
+  public static double MAX48_ARM = 36 * 4096;
+  public static double MED_ARM_PRESET = 17 * 4096;
+  public static double HIGH_ARM_PRESET = 41.75 * 4096; //
+  public static double DRV_ARM_PRESET = 3.0 * 4096; //
   public static double ARM_OFFSET = 0; //
   public static double OV_ARM = 0.1;
 
@@ -127,19 +127,19 @@ public final class Constants {
    * Gains used in Positon Closed Loop, to be adjusted accordingly Gains(kp, ki, kd, kf, izone, peak
    * output);
    */
-  public static final Gains kGains = new Gains(1200.0, 0.0, 0.3, 0.00, 0, 0.8);
+  public static final Gains kGains = new Gains(0.5, 0.0, 0.1, 0.00, 0, 0.5);
 
   public static final double DEADBAND = 0.05;
 
   ////// ARM Rotate 1 Constants ///////////////////////////
 
   public static double ROT_MAX = 12.05 * 4096;
-  public static double LOW48_ROT = 20000;
-  public static double HIGH48_ROT = 30000;
+  public static double LOW48_ROT = 17000;
+  public static double HIGH48_ROT = 22000;
   public static double START_ROT_PRESET = 13000;
   public static double MED_ROT_PRESET = 26000;
-  public static double HIGH_ROT_PRESET = 17500;
-  public static double DRV_ROT_PRESET = 22500;
+  public static double HIGH_ROT_PRESET = 19000;
+  public static double DRV_ROT_PRESET = 21500;
   public static double OV_ROT_ARM = 0.1;
 
   /**
