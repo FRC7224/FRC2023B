@@ -6,7 +6,11 @@ package frc.robot.subsystems.drivetrain;
 
 import static frc.robot.subsystems.drivetrain.DrivetrainConstants.*;
 
+import com.pathplanner.lib.PathConstraints;
+import com.pathplanner.lib.PathPlanner;
+import com.pathplanner.lib.PathPlannerTrajectory;
 import com.pathplanner.lib.PathPlannerTrajectory.PathPlannerState;
+import com.pathplanner.lib.commands.FollowPathWithEvents;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -23,6 +27,8 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.team3061.gyro.GyroIO;
@@ -30,6 +36,9 @@ import frc.lib.team3061.gyro.GyroIOInputsAutoLogged;
 import frc.lib.team3061.swerve.SwerveModule;
 import frc.lib.team3061.util.RobotOdometry;
 import frc.lib.team6328.util.TunableNumber;
+import frc.robot.Constants;
+import frc.robot.commands.FollowPath;
+import java.util.List;
 import org.littletonrobotics.junction.Logger;
 
 /**
@@ -191,8 +200,8 @@ public class Drivetrain extends SubsystemBase {
    */
   public void setGyroOffset(double expectedYaw) {
     // There is a delay between setting the yaw on the Pigeon and that change
-    //      taking effect. As a result, it is recommended to never set the yaw and
-    //      adjust the local offset instead.
+    // taking effect. As a result, it is recommended to never set the yaw and
+    // adjust the local offset instead.
     if (gyroInputs.connected) {
       this.gyroOffset = expectedYaw - gyroInputs.positionDeg;
     } else {
@@ -290,7 +299,8 @@ public class Drivetrain extends SubsystemBase {
         break;
 
       case CHARACTERIZATION:
-        // In characterization mode, drive at the specified voltage (and turn to zero degrees)
+        // In characterization mode, drive at the specified voltage (and turn to zero
+        // degrees)
         for (SwerveModule swerveModule : swerveModules) {
           swerveModule.setVoltageForCharacterization(characterizationVoltage);
         }
@@ -325,6 +335,7 @@ public class Drivetrain extends SubsystemBase {
     // update and log gyro inputs
     gyroIO.updateInputs(gyroInputs);
     Logger.getInstance().processInputs("Drive/Gyro", gyroInputs);
+    SmartDashboard.putNumber("pitch", gyroInputs.pitch);
 
     // update and log the swerve moudles inputs
     for (SwerveModule swerveModule : swerveModules) {
@@ -338,7 +349,8 @@ public class Drivetrain extends SubsystemBase {
       swerveModulePositions[i] = swerveModules[i].getPosition();
     }
 
-    // if the gyro is not connected, use the swerve module positions to estimate the robot's
+    // if the gyro is not connected, use the swerve module positions to estimate the
+    // robot's
     // rotation
     if (!gyroInputs.connected) {
       SwerveModulePosition[] moduleDeltas = new SwerveModulePosition[4];
@@ -360,7 +372,8 @@ public class Drivetrain extends SubsystemBase {
     poseEstimator.updateWithTime(
         Timer.getFPGATimestamp(), this.getRotation(), swerveModulePositions);
 
-    // update the brake mode based on the robot's velocity and state (enabled/disabled)
+    // update the brake mode based on the robot's velocity and state
+    // (enabled/disabled)
     updateBrakeMode();
 
     // update tunables
@@ -566,7 +579,39 @@ public class Drivetrain extends SubsystemBase {
   /** Autobalance. */
   public void autoBalance() {
     SmartDashboard.putNumber("pitch", gyroInputs.pitch);
-    ;
+
+    if (gyroInputs.pitch >= Constants.PITCH_LIMIT) {
+      SmartDashboard.putNumber("pitch forward", gyroInputs.pitch);
+      List<PathPlannerTrajectory> Forward =
+          PathPlanner.loadPathGroup(
+              "Forward",
+              new PathConstraints(
+                  AUTO_MAX_SPEED_METERS_PER_SECOND,
+                  AUTO_MAX_ACCELERATION_METERS_PER_SECOND_SQUARED));
+
+      CommandScheduler.getInstance()
+          .schedule(
+              Commands.sequence(
+                  new FollowPathWithEvents(
+                      new FollowPath(Forward.get(0), this, true),
+                      Forward.get(0).getMarkers(),
+                      AUTO_EVENT_MAP)));
+    } else if (gyroInputs.pitch <= -Constants.PITCH_LIMIT) {
+
+      List<PathPlannerTrajectory> Back =
+          PathPlanner.loadPathGroup(
+              "Back",
+              new PathConstraints(
+                  AUTO_MAX_SPEED_METERS_PER_SECOND,
+                  AUTO_MAX_ACCELERATION_METERS_PER_SECOND_SQUARED));
+      CommandScheduler.getInstance()
+          .schedule(
+              Commands.sequence(
+                  new FollowPathWithEvents(
+                      new FollowPath(Back.get(0), this, true),
+                      Back.get(0).getMarkers(),
+                      AUTO_EVENT_MAP)));
+    }
   }
 
   /**

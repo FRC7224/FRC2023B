@@ -84,6 +84,10 @@ public final class Constants {
     REPLAY,
     SIM
   }
+  //////  autobalace  Constants ///////////////////////////
+
+  public static double PITCH_LIMIT = 0.0;
+  public static double PITCH_CAL_OFFSET = 0;
 
   ////// Claw  Constants ///////////////////////////
 
@@ -93,7 +97,7 @@ public final class Constants {
 
   public static double MAX_ARM = 41.75 * 4096;
   public static double MAX48_ARM = 36 * 4096;
-  public static double MED_ARM_PRESET = 17 * 4096;
+  public static double MED_ARM_PRESET = 14.5 * 4096;
   public static double HIGH_ARM_PRESET = 41.75 * 4096; //
   public static double DRV_ARM_PRESET = 3.0 * 4096; //
   public static double ARM_OFFSET = 0; //
@@ -137,9 +141,11 @@ public final class Constants {
   public static double LOW48_ROT = 17000;
   public static double HIGH48_ROT = 22000;
   public static double START_ROT_PRESET = 13000;
-  public static double MED_ROT_PRESET = 26000;
-  public static double HIGH_ROT_PRESET = 19000;
+  public static double MED_ROT_PRESET = 24000;
+  public static double HIGH_ROT_PRESET = 21000;
   public static double DRV_ROT_PRESET = 21500;
+  public static double OFFSET_ROT = -2500;
+  public static double OFFSET_ROT_PRE = 3000;
   public static double OV_ROT_ARM = 0.1;
 
   /**

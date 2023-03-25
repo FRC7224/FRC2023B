@@ -91,7 +91,7 @@ public class ArmRotateCommand extends CommandBase {
       armrotatesubsystem.SetPercentOutputR2(rotatecontrol * -Constants.OV_ROT_ARM);
     } else if (drvrotateButton.getAsBoolean()) {
       if (targetPositionRotations >= 0) { // check to see if arm is rotated backwards
-        targetPositionRotations = Constants.DRV_ROT_PRESET;
+        targetPositionRotations = Constants.DRV_ROT_PRESET; // No offest
       } else {
         targetPositionRotations = -Constants.DRV_ROT_PRESET;
       }
@@ -101,7 +101,7 @@ public class ArmRotateCommand extends CommandBase {
       if (targetPositionRotations >= 0) { // check to see if arm is rotated backwards
         targetPositionRotations = Constants.MED_ROT_PRESET;
       } else {
-        targetPositionRotations = -Constants.MED_ROT_PRESET;
+        targetPositionRotations = -(Constants.MED_ROT_PRESET + Constants.OFFSET_ROT_PRE);
       }
       armrotatesubsystem.SetTargetPositionRotationsR1(targetPositionRotations);
       armrotatesubsystem.SetTargetPositionRotationsR2(-targetPositionRotations);
@@ -109,7 +109,7 @@ public class ArmRotateCommand extends CommandBase {
       if (targetPositionRotations >= 0) { // check to see if arm is rotated backwards
         targetPositionRotations = Constants.HIGH_ROT_PRESET;
       } else {
-        targetPositionRotations = -Constants.HIGH_ROT_PRESET;
+        targetPositionRotations = -(Constants.HIGH_ROT_PRESET + Constants.OFFSET_ROT_PRE);
       }
       armrotatesubsystem.SetTargetPositionRotationsR1(targetPositionRotations);
       armrotatesubsystem.SetTargetPositionRotationsR2(-targetPositionRotations);
@@ -117,7 +117,11 @@ public class ArmRotateCommand extends CommandBase {
       /* Position Closed Loop */
       /* x *  Rotations * 4096 u/rev in either direction */
 
-      targetPositionRotations = rotatecontrol * Constants.ROT_MAX;
+      if (targetPositionRotations >= 0) { // check to see if arm is rotated backwards
+        targetPositionRotations = rotatecontrol * Constants.ROT_MAX;
+      } else {
+        targetPositionRotations = rotatecontrol * Constants.ROT_MAX + Constants.OFFSET_ROT;
+      }
       armrotatesubsystem.SetTargetPositionRotationsR1(targetPositionRotations);
       armrotatesubsystem.SetTargetPositionRotationsR2(-targetPositionRotations);
     }

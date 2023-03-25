@@ -190,9 +190,9 @@ public class ArmRotateSubsystem extends SubsystemBase {
   ;
 
   public void SetTargetRotHIGH() {
-    rotate1.set(ControlMode.Position, Constants.HIGH_ROT_PRESET);
+    rotate1.set(ControlMode.Position, Constants.HIGH_ROT_PRESET + Constants.OFFSET_ROT);
     rotate2.set(ControlMode.Position, -Constants.HIGH_ROT_PRESET);
-    GlobalStatus.Global_Rotate1_position = Constants.HIGH_ROT_PRESET;
+    GlobalStatus.Global_Rotate1_position = Constants.HIGH_ROT_PRESET + Constants.OFFSET_ROT;
     GlobalStatus.Global_Rotate2_position = -Constants.HIGH_ROT_PRESET;
   }
   ;

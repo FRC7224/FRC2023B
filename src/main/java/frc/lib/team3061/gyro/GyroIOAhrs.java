@@ -6,6 +6,7 @@ package frc.lib.team3061.gyro;
 
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
+import frc.robot.Constants;
 
 public class GyroIOAhrs implements GyroIO {
   private final AHRS gyro;
@@ -23,7 +24,7 @@ public class GyroIOAhrs implements GyroIO {
     inputs.velocityDegPerSec =
         gyro.getRate(); // Return the rate of rotation of the yaw (Z-axis) gyro, in degrees per
     // second.
-    inputs.pitch = gyro.getPitch();
+    inputs.pitch = gyro.getPitch() + Constants.PITCH_CAL_OFFSET;
     inputs.roll = gyro.getRoll();
   }
 }

@@ -15,7 +15,6 @@ import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -96,7 +95,9 @@ public class RobotContainer {
             // The important thing about how you configure your gyroscope is that rotating
             // the robot counter-clockwise should
             // cause the angle reading to increase until it wraps back over to zero.
-            GyroIO gyro = new GyroIOAhrs(); // NavX connected over MXP
+            GyroIO gyro =
+                new GyroIOAhrs(); // NavX connected over MXP    SmartDashboard.putNumber("pitch io",
+            // gyro.getPitch());
 
             SwerveModule flModule =
                 new SwerveModule(
@@ -279,7 +280,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // field-relative toggle
 
-    SmartDashboard.putBoolean("Field Button input", FieldRelativeButton.getAsBoolean());
+    //   SmartDashboard.putBoolean("Field Button input", FieldRelativeButton.getAsBoolean());
     FieldRelativeButton.toggleOnTrue(
         Commands.either(
             Commands.runOnce(drivetrain::disableFieldRelative, drivetrain),
@@ -375,13 +376,14 @@ public class RobotContainer {
                 Left1.get(0).getMarkers(),
                 AUTO_EVENT_MAP),
             Commands.runOnce(clawsubsystem::SetClawOn, clawsubsystem),
-            Commands.runOnce(drivetrain::autoGyroscope, drivetrain),
+            Commands.waitSeconds(1.0),
+            Commands.runOnce(drivetrain::autoBalance, drivetrain),
             Commands.runOnce(drivetrain::enableXstance, drivetrain),
             Commands.runOnce(drivetrain::setBrakeOn, drivetrain),
-            Commands.waitSeconds(8.0),
+            Commands.runOnce(drivetrain::autoGyroscope, drivetrain),
+            Commands.waitSeconds(2.0),
             Commands.runOnce(drivetrain::disableXstance, drivetrain),
-            Commands.runOnce(drivetrain::setBrakeOff, drivetrain),
-            Commands.runOnce(drivetrain::autoGyroscope, drivetrain));
+            Commands.runOnce(drivetrain::setBrakeOff, drivetrain));
 
     Command autoLeft2 =
         Commands.sequence(
@@ -401,10 +403,12 @@ public class RobotContainer {
                 Left2.get(0).getMarkers(),
                 AUTO_EVENT_MAP),
             Commands.runOnce(clawsubsystem::SetClawOn, clawsubsystem),
+            Commands.waitSeconds(1.0),
+            Commands.runOnce(drivetrain::autoBalance, drivetrain),
             Commands.runOnce(drivetrain::autoGyroscope, drivetrain),
             Commands.runOnce(drivetrain::enableXstance, drivetrain),
             Commands.runOnce(drivetrain::setBrakeOn, drivetrain),
-            Commands.waitSeconds(8.0),
+            Commands.waitSeconds(2.0),
             Commands.runOnce(drivetrain::disableXstance, drivetrain),
             Commands.runOnce(drivetrain::setBrakeOff, drivetrain));
 
@@ -426,10 +430,12 @@ public class RobotContainer {
                 Left3.get(0).getMarkers(),
                 AUTO_EVENT_MAP),
             Commands.runOnce(clawsubsystem::SetClawOn, clawsubsystem),
+            Commands.waitSeconds(0.75),
+            Commands.runOnce(drivetrain::autoBalance, drivetrain),
             Commands.runOnce(drivetrain::autoGyroscope, drivetrain),
             Commands.runOnce(drivetrain::enableXstance, drivetrain),
             Commands.runOnce(drivetrain::setBrakeOn, drivetrain),
-            Commands.waitSeconds(8.0),
+            Commands.waitSeconds(2.0),
             Commands.runOnce(drivetrain::disableXstance, drivetrain),
             Commands.runOnce(drivetrain::setBrakeOff, drivetrain));
 
@@ -454,7 +460,7 @@ public class RobotContainer {
             Commands.runOnce(drivetrain::autoGyroscope, drivetrain),
             Commands.runOnce(drivetrain::enableXstance, drivetrain),
             Commands.runOnce(drivetrain::setBrakeOn, drivetrain),
-            Commands.waitSeconds(8.0),
+            Commands.waitSeconds(3.0),
             Commands.runOnce(drivetrain::disableXstance, drivetrain),
             Commands.runOnce(drivetrain::setBrakeOff, drivetrain));
 
@@ -476,10 +482,12 @@ public class RobotContainer {
                 Right1.get(0).getMarkers(),
                 AUTO_EVENT_MAP),
             Commands.runOnce(clawsubsystem::SetClawOn, clawsubsystem),
+            Commands.waitSeconds(1.0),
+            Commands.runOnce(drivetrain::autoBalance, drivetrain),
             Commands.runOnce(drivetrain::autoGyroscope, drivetrain),
             Commands.runOnce(drivetrain::enableXstance, drivetrain),
             Commands.runOnce(drivetrain::setBrakeOn, drivetrain),
-            Commands.waitSeconds(8.0),
+            Commands.waitSeconds(2.0),
             Commands.runOnce(drivetrain::disableXstance, drivetrain),
             Commands.runOnce(drivetrain::setBrakeOff, drivetrain));
 
@@ -501,10 +509,12 @@ public class RobotContainer {
                 Right2.get(0).getMarkers(),
                 AUTO_EVENT_MAP),
             Commands.runOnce(clawsubsystem::SetClawOn, clawsubsystem),
+            Commands.waitSeconds(1.0),
+            Commands.runOnce(drivetrain::autoBalance, drivetrain),
             Commands.runOnce(drivetrain::autoGyroscope, drivetrain),
             Commands.runOnce(drivetrain::enableXstance, drivetrain),
             Commands.runOnce(drivetrain::setBrakeOn, drivetrain),
-            Commands.waitSeconds(8.0),
+            Commands.waitSeconds(2.0),
             Commands.runOnce(drivetrain::disableXstance, drivetrain),
             Commands.runOnce(drivetrain::setBrakeOff, drivetrain));
 
@@ -526,10 +536,12 @@ public class RobotContainer {
                 Right3.get(0).getMarkers(),
                 AUTO_EVENT_MAP),
             Commands.runOnce(clawsubsystem::SetClawOn, clawsubsystem),
+            Commands.waitSeconds(0.75),
+            Commands.runOnce(drivetrain::autoBalance, drivetrain),
             Commands.runOnce(drivetrain::autoGyroscope, drivetrain),
             Commands.runOnce(drivetrain::enableXstance, drivetrain),
             Commands.runOnce(drivetrain::setBrakeOn, drivetrain),
-            Commands.waitSeconds(8.0),
+            Commands.waitSeconds(2.0),
             Commands.runOnce(drivetrain::disableXstance, drivetrain),
             Commands.runOnce(drivetrain::setBrakeOff, drivetrain));
 
@@ -554,7 +566,7 @@ public class RobotContainer {
             Commands.runOnce(drivetrain::autoGyroscope, drivetrain),
             Commands.runOnce(drivetrain::enableXstance, drivetrain),
             Commands.runOnce(drivetrain::setBrakeOn, drivetrain),
-            Commands.waitSeconds(8.0),
+            Commands.waitSeconds(3.0),
             Commands.runOnce(drivetrain::disableXstance, drivetrain),
             Commands.runOnce(drivetrain::setBrakeOff, drivetrain));
 
