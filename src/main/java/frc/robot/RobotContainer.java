@@ -377,13 +377,13 @@ public class RobotContainer {
                 AUTO_EVENT_MAP),
             Commands.runOnce(clawsubsystem::SetClawOn, clawsubsystem),
             Commands.waitSeconds(1.0),
-            Commands.runOnce(drivetrain::autoBalance, drivetrain),
-            Commands.runOnce(drivetrain::enableXstance, drivetrain),
-            Commands.runOnce(drivetrain::setBrakeOn, drivetrain),
-            Commands.runOnce(drivetrain::autoGyroscope, drivetrain),
-            Commands.waitSeconds(2.0),
-            Commands.runOnce(drivetrain::disableXstance, drivetrain),
-            Commands.runOnce(drivetrain::setBrakeOff, drivetrain));
+            Commands.runOnce(drivetrain::autoBalance, drivetrain));
+    //      Commands.runOnce(drivetrain::enableXstance, drivetrain),
+    //      Commands.runOnce(drivetrain::setBrakeOn, drivetrain),
+    //      Commands.runOnce(drivetrain::autoGyroscope, drivetrain),
+    //      Commands.waitSeconds(2.0),
+    //      Commands.runOnce(drivetrain::disableXstance, drivetrain),
+    //      Commands.runOnce(drivetrain::setBrakeOff, drivetrain));
 
     Command autoLeft2 =
         Commands.sequence(
@@ -404,13 +404,13 @@ public class RobotContainer {
                 AUTO_EVENT_MAP),
             Commands.runOnce(clawsubsystem::SetClawOn, clawsubsystem),
             Commands.waitSeconds(1.0),
-            Commands.runOnce(drivetrain::autoBalance, drivetrain),
-            Commands.runOnce(drivetrain::autoGyroscope, drivetrain),
-            Commands.runOnce(drivetrain::enableXstance, drivetrain),
-            Commands.runOnce(drivetrain::setBrakeOn, drivetrain),
-            Commands.waitSeconds(2.0),
-            Commands.runOnce(drivetrain::disableXstance, drivetrain),
-            Commands.runOnce(drivetrain::setBrakeOff, drivetrain));
+            Commands.runOnce(drivetrain::autoBalance, drivetrain));
+    //       Commands.runOnce(drivetrain::autoGyroscope, drivetrain),
+    //       Commands.runOnce(drivetrain::enableXstance, drivetrain),
+    //       Commands.runOnce(drivetrain::setBrakeOn, drivetrain),
+    //       Commands.waitSeconds(2.0),
+    //       Commands.runOnce(drivetrain::disableXstance, drivetrain),
+    //       Commands.runOnce(drivetrain::setBrakeOff, drivetrain));
 
     Command autoLeft3 =
         Commands.sequence(
@@ -431,13 +431,13 @@ public class RobotContainer {
                 AUTO_EVENT_MAP),
             Commands.runOnce(clawsubsystem::SetClawOn, clawsubsystem),
             Commands.waitSeconds(0.75),
-            Commands.runOnce(drivetrain::autoBalance, drivetrain),
-            Commands.runOnce(drivetrain::autoGyroscope, drivetrain),
-            Commands.runOnce(drivetrain::enableXstance, drivetrain),
-            Commands.runOnce(drivetrain::setBrakeOn, drivetrain),
-            Commands.waitSeconds(2.0),
-            Commands.runOnce(drivetrain::disableXstance, drivetrain),
-            Commands.runOnce(drivetrain::setBrakeOff, drivetrain));
+            Commands.runOnce(drivetrain::autoBalance, drivetrain));
+    //          Commands.runOnce(drivetrain::autoGyroscope, drivetrain),
+    //         Commands.runOnce(drivetrain::enableXstance, drivetrain),
+    //         Commands.runOnce(drivetrain::setBrakeOn, drivetrain),
+    //         Commands.waitSeconds(2.0),
+    //         Commands.runOnce(drivetrain::disableXstance, drivetrain),
+    //         Commands.runOnce(drivetrain::setBrakeOff, drivetrain));
 
     Command autoLeft3long =
         Commands.sequence(
@@ -483,13 +483,13 @@ public class RobotContainer {
                 AUTO_EVENT_MAP),
             Commands.runOnce(clawsubsystem::SetClawOn, clawsubsystem),
             Commands.waitSeconds(1.0),
-            Commands.runOnce(drivetrain::autoBalance, drivetrain),
-            Commands.runOnce(drivetrain::autoGyroscope, drivetrain),
-            Commands.runOnce(drivetrain::enableXstance, drivetrain),
-            Commands.runOnce(drivetrain::setBrakeOn, drivetrain),
-            Commands.waitSeconds(2.0),
-            Commands.runOnce(drivetrain::disableXstance, drivetrain),
-            Commands.runOnce(drivetrain::setBrakeOff, drivetrain));
+            Commands.runOnce(drivetrain::autoBalance, drivetrain));
+    //      Commands.runOnce(drivetrain::autoGyroscope, drivetrain),
+    //      Commands.runOnce(drivetrain::enableXstance, drivetrain),
+    //      Commands.runOnce(drivetrain::setBrakeOn, drivetrain),
+    //      Commands.waitSeconds(2.0),
+    //      Commands.runOnce(drivetrain::disableXstance, drivetrain),
+    //      Commands.runOnce(drivetrain::setBrakeOff, drivetrain));
 
     Command autoRight2 =
         Commands.sequence(
@@ -510,13 +510,13 @@ public class RobotContainer {
                 AUTO_EVENT_MAP),
             Commands.runOnce(clawsubsystem::SetClawOn, clawsubsystem),
             Commands.waitSeconds(1.0),
-            Commands.runOnce(drivetrain::autoBalance, drivetrain),
-            Commands.runOnce(drivetrain::autoGyroscope, drivetrain),
-            Commands.runOnce(drivetrain::enableXstance, drivetrain),
-            Commands.runOnce(drivetrain::setBrakeOn, drivetrain),
-            Commands.waitSeconds(2.0),
-            Commands.runOnce(drivetrain::disableXstance, drivetrain),
-            Commands.runOnce(drivetrain::setBrakeOff, drivetrain));
+            Commands.runOnce(drivetrain::autoBalance, drivetrain));
+    //       Commands.runOnce(drivetrain::autoGyroscope, drivetrain),
+    //       Commands.runOnce(drivetrain::enableXstance, drivetrain),
+    //       Commands.runOnce(drivetrain::setBrakeOn, drivetrain),
+    //       Commands.waitSeconds(2.0),
+    //       Commands.runOnce(drivetrain::disableXstance, drivetrain),
+    //        Commands.runOnce(drivetrain::setBrakeOff, drivetrain));
 
     Command autoRight3 =
         Commands.sequence(
@@ -537,13 +537,7 @@ public class RobotContainer {
                 AUTO_EVENT_MAP),
             Commands.runOnce(clawsubsystem::SetClawOn, clawsubsystem),
             Commands.waitSeconds(0.75),
-            Commands.runOnce(drivetrain::autoBalance, drivetrain),
-            Commands.runOnce(drivetrain::autoGyroscope, drivetrain),
-            Commands.runOnce(drivetrain::enableXstance, drivetrain),
-            Commands.runOnce(drivetrain::setBrakeOn, drivetrain),
-            Commands.waitSeconds(2.0),
-            Commands.runOnce(drivetrain::disableXstance, drivetrain),
-            Commands.runOnce(drivetrain::setBrakeOff, drivetrain));
+            Commands.runOnce(drivetrain::autoBalance, drivetrain));
 
     Command autoRight3long =
         Commands.sequence(

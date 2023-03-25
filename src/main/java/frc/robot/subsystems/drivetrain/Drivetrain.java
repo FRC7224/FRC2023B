@@ -28,7 +28,6 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.team3061.gyro.GyroIO;
@@ -591,11 +590,10 @@ public class Drivetrain extends SubsystemBase {
 
       CommandScheduler.getInstance()
           .schedule(
-              Commands.sequence(
-                  new FollowPathWithEvents(
-                      new FollowPath(Forward.get(0), this, true),
-                      Forward.get(0).getMarkers(),
-                      AUTO_EVENT_MAP)));
+              new FollowPathWithEvents(
+                  new FollowPath(Forward.get(0), this, true),
+                  Forward.get(0).getMarkers(),
+                  AUTO_EVENT_MAP));
     } else if (gyroInputs.pitch <= -Constants.PITCH_LIMIT) {
 
       List<PathPlannerTrajectory> Back =
@@ -606,12 +604,14 @@ public class Drivetrain extends SubsystemBase {
                   AUTO_MAX_ACCELERATION_METERS_PER_SECOND_SQUARED));
       CommandScheduler.getInstance()
           .schedule(
-              Commands.sequence(
-                  new FollowPathWithEvents(
-                      new FollowPath(Back.get(0), this, true),
-                      Back.get(0).getMarkers(),
-                      AUTO_EVENT_MAP)));
+              //      Commands.sequence(
+              new FollowPathWithEvents(
+                  new FollowPath(Back.get(0), this, true),
+                  Back.get(0).getMarkers(),
+                  AUTO_EVENT_MAP));
     }
+    autoGyroscope();
+    enableXstance();
   }
 
   /**
