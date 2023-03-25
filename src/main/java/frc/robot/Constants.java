@@ -86,8 +86,8 @@ public final class Constants {
   }
   //////  autobalace  Constants ///////////////////////////
 
-  public static double PITCH_LIMIT = 0.0;
-  public static double PITCH_CAL_OFFSET = 0;
+  public static double PITCH_LIMIT = 5.0;
+  public static double PITCH_CAL_OFFSET = -2.7;
 
   ////// Claw  Constants ///////////////////////////
 
