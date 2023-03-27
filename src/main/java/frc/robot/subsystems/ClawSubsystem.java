@@ -57,8 +57,8 @@ public class ClawSubsystem extends SubsystemBase {
     // claw2.set(1);
     // claw1.set(0);
     // claw2.set(0);
-    claw1.set(-(0.5 * Constants.CLAW_SPEED));
-    claw2.set(0.5 * Constants.CLAW_SPEED);
+    claw1.set(-(0.7 * Constants.CLAW_SPEED));
+    claw2.set(0.7 * Constants.CLAW_SPEED);
   }
 
   @Override

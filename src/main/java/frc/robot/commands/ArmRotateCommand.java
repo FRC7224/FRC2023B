@@ -101,7 +101,7 @@ public class ArmRotateCommand extends CommandBase {
       if (targetPositionRotations >= 0) { // check to see if arm is rotated backwards
         targetPositionRotations = Constants.MED_ROT_PRESET;
       } else {
-        targetPositionRotations = -(Constants.MED_ROT_PRESET + Constants.OFFSET_ROT_PRE);
+        targetPositionRotations = -(Constants.MED_ROT_PRESET + Constants.OFFSET_ROT_PRE_BACK_MED);
       }
       armrotatesubsystem.SetTargetPositionRotationsR1(targetPositionRotations);
       armrotatesubsystem.SetTargetPositionRotationsR2(-targetPositionRotations);
@@ -109,7 +109,7 @@ public class ArmRotateCommand extends CommandBase {
       if (targetPositionRotations >= 0) { // check to see if arm is rotated backwards
         targetPositionRotations = Constants.HIGH_ROT_PRESET;
       } else {
-        targetPositionRotations = -(Constants.HIGH_ROT_PRESET + Constants.OFFSET_ROT_PRE);
+        targetPositionRotations = -(Constants.HIGH_ROT_PRESET + Constants.OFFSET_ROT_PRE_BACK);
       }
       armrotatesubsystem.SetTargetPositionRotationsR1(targetPositionRotations);
       armrotatesubsystem.SetTargetPositionRotationsR2(-targetPositionRotations);
