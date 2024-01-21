@@ -95,10 +95,11 @@ public final class Constants {
 
   ////// ARM Extend Constants ///////////////////////////
 
-  public static double MAX_ARM = 42.25 * 4096;
+  public static double MAX_ARM = 42.5 * 4096;
   public static double MAX48_ARM = 36 * 4096;
-  public static double MED_ARM_PRESET = 15.5 * 4096;
-  public static double HIGH_ARM_PRESET = 42.25 * 4096; //
+  public static double MED_ARM_PRESET = 18 * 4096;
+  public static double HIGH_ARM_PRESET = 42.5 * 4096; //
+  public static double HIGH_ARM_PRESET_AUTO = 42.25 * 4096; //
   public static double DRV_ARM_PRESET = 3.0 * 4096; //
   public static double ARM_OFFSET = 0; //
   public static double OV_ARM = 0.1;
@@ -147,7 +148,7 @@ public final class Constants {
   public static double OFFSET_ROT = -2500;
   public static double OFFSET_ROT_PRE = 3000;
   public static double OFFSET_ROT_PRE_BACK_MED = 1000;
-  public static double OFFSET_ROT_PRE_BACK = 500;
+  public static double OFFSET_ROT_PRE_BACK = 350;
   public static double OV_ROT_ARM = 0.1;
 
   /**

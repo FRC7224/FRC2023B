@@ -153,7 +153,7 @@ public class ArmSubsystem extends SubsystemBase {
   ;
 
   public void SetTargetArmHigh() {
-    arm.set(ControlMode.Position, Constants.HIGH_ARM_PRESET);
+    arm.set(ControlMode.Position, Constants.HIGH_ARM_PRESET_AUTO);
   }
   ;
 
